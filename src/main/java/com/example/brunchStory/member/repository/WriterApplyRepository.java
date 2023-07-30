@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 @NonNullApi
-public interface WriteApplyRepository extends JpaRepository<WriterApply, Long> {
+public interface WriterApplyRepository extends JpaRepository<WriterApply, Long> {
     List<WriterApply> findByApplicant(Member applicant);
 
 }
