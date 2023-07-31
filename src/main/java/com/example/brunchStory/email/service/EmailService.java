@@ -31,6 +31,5 @@ public class EmailService {
 //        msg.setText();
 
         mailSender.send(msg);
-
     }
 }

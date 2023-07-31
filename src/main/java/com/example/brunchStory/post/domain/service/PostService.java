@@ -32,6 +32,7 @@ public class PostService {
 
     }
 
+
     @Transactional(readOnly = true)
     public Page<PostResponse> findAll(PostCondition postCondition, PageRequest pageRequest){
         return postRepository.findAllByCondition(pageRequest,postCondition);
