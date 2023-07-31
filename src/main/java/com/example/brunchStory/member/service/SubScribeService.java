@@ -1,7 +1,6 @@
 package com.example.brunchStory.member.service;
 
 import com.example.brunchStory.member.domain.entity.Member;
-import org.springframework.stereotype.Service;
 
 
 public interface SubScribeService {
