@@ -4,11 +4,26 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/test3?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: root
-    password: 1q2w3e4r
+    password: 1q2w3e4r!!
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
         format_sql: true
+  mail:
+    host: smtp.gmail.com # 1 서버 호스트
+    port: 587 # 2 포트
+    username: ${mail.username} # 3 발신자
+    password: ${mail.password} # 4 비밀번호. 이것들은 환경변수로 설정예정
+    properties:
+      mail:
+        smtp:
+          auth: false # 5 사용자 인증 여부 . 기본값 false 이건 공부 필요함.
+          timeout: 5000 # 6 응답 시간.
+          starttls:
+            enable: false # 7 보안 관련 . 기본값 false 이것도 공부 필요함.
+
+jwt:
+  secret:  x!A%D*G-KaPdSgVkYp3s5v8y/B?E(H+M

@@ -3,9 +3,7 @@ package com.example.brunchStory.member.domain.entity;
 import com.example.brunchStory.member.domain.dto.MemberRole;
 import com.example.brunchStory.post.domain.entity.*;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -14,6 +12,8 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Setter
+@Builder
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,6 +33,9 @@ public class Member {
 
     @OneToMany(mappedBy = "member")
     private List<Subscribe> subscribers;
+
+    @OneToMany(mappedBy = "member")
+    private List<Interest> interests;
 
     /// 멤버와 작가 구분 선
 
