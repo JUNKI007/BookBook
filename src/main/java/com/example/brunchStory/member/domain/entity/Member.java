@@ -3,10 +3,7 @@ package com.example.brunchStory.member.domain.entity;
 import com.example.brunchStory.member.domain.dto.MemberRole;
 import com.example.brunchStory.post.domain.entity.*;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -16,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
+@Builder
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
