@@ -22,6 +22,8 @@ public class Subject {
     private Long id;
 
     private String name;
+    @OneToMany(mappedBy = "subject")
+    private List<Post> posts;
 
     @OneToMany(mappedBy = "subject")
     private List<Post> posts;

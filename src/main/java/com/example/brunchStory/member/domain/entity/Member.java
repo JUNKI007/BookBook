@@ -34,6 +34,9 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Subscribe> subscribers;
 
+    @OneToMany(mappedBy = "member")
+    private List<Interest> interests;
+
     /// 멤버와 작가 구분 선
 
     @OneToMany(mappedBy = "author")

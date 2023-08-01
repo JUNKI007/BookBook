@@ -12,8 +12,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import java.util.List;
 import java.util.Optional;
+
 
 @Service
 @RequiredArgsConstructor
@@ -21,9 +23,11 @@ public class PostService {
     private final PostRepository postRepository;
 
 
+
     public void write(Long memberId, PostRequest postRequest){
         //TODO 멤버 아이디로 멤버 찾아오기
         Member member = Member.builder().id(memberId).build();
+
 
         Post post = postRequest.toEntity(member);
         postRepository.save(post);
@@ -35,6 +39,7 @@ public class PostService {
 
 
     }
+
     public List<Post>findAllById(List<Long> postIds){ // 아이디들로 모든 글 찾아오기
         List<Post> allById = postRepository.findAllById(postIds);
         return allById;
@@ -58,6 +63,7 @@ public class PostService {
         // 그 흥미에 맞게 글을 찾아와야하는데, 중복이 되면 안됨.
         return  null;
     }
+
 
 
 }
