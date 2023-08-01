@@ -14,6 +14,7 @@ import java.util.Map;
 
 @Service
 public class AuthService {
+
     @Value("${jwt.secret}")
     private String secretKey;
 

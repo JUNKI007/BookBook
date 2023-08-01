@@ -28,6 +28,7 @@ public class Member {
     @Column(name = "member_role")
     private MemberRole role;
 
+
     @OneToMany(mappedBy = "member")
     private List<Alarm> tellNewPost;
 

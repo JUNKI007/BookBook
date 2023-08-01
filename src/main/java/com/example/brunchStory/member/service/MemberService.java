@@ -7,7 +7,7 @@ import com.example.brunchStory.member.domain.request.LoginRequest;
 import com.example.brunchStory.member.domain.response.LoginResponse;
 import com.example.brunchStory.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
+//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -45,6 +45,10 @@ public class MemberService {
 
     public void insert(SignupRequest request){
         memberRepository.save(request.toEntity());
+    }
+
+    public void delete(Long id){
+        memberRepository.deleteById(id);
     }
 
 //    public void delete()
