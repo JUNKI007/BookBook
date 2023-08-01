@@ -5,12 +5,14 @@ import com.example.brunchStory.member.domain.entity.Subscribe;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 
 @Repository
 public interface SubScribeRepository extends JpaRepository<Subscribe, Long> {
-    boolean existsByMemberAndAuthor(Member member, Member author);
+    boolean existsByMemberIdAndAuthorId(Long memberId, Long authorId);
 
-    Subscribe findByMemberAndAuthor(Member member, Member author);
-
-    int countByAuthor(Member author);
+    List<Subscribe> findByMemberIdAndAuthorId(Long memberId, Long authorId);
+    void deleteMemberIdAndAuthorId(Long memberId, Long authorId);
+    Long countByAuthorId(Long authorId);
 }
