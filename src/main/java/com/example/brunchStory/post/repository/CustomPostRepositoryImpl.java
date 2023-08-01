@@ -3,6 +3,7 @@ package com.example.brunchStory.post.repository;
 import com.example.brunchStory.post.domain.dto.PostCondition;
 import com.example.brunchStory.post.domain.entity.Post;
 
+
 import static com.example.brunchStory.post.domain.entity.QPost.post;
 import static com.example.brunchStory.member.domain.entity.QMember.member;
 
@@ -15,7 +16,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
-
 
 
 public class CustomPostRepositoryImpl implements CustomPostRepository{

@@ -1,12 +1,9 @@
 
+
 package com.example.brunchStory.post.domain.event;
 
-import org.quartz.JobBuilder;
-import org.quartz.JobDataMap;
-import org.quartz.JobDetail;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.event.EventListener;
-import org.springframework.scheduling.quartz.SchedulerFactoryBean;
+
+
 //
 //import org.quartz.JobBuilder;
 //import org.quartz.JobDataMap;
