@@ -1,5 +1,6 @@
 //package com.example.brunchStory.post.domain.event;
 //
+
 //import org.springframework.context.ApplicationEvent;
 //
 ////public class PostCreateEvent extends ApplicationEvent {
@@ -16,4 +17,5 @@
 //    //X 게시글이 작성되는 것을 이벤트로 생성하는 클래스입니다.
 //    //X service에 게시글이 작성되는 메소드 안에도 'eventPublisher.publishEvent(new PostCreateEvent(createPost));' 추가예정
 //
+
 //}

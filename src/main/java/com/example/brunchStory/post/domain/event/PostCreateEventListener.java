@@ -1,4 +1,9 @@
-//package com.example.brunchStory.post.domain.event;
+
+
+package com.example.brunchStory.post.domain.event;
+
+
+
 //
 //import org.quartz.JobBuilder;
 //import org.quartz.JobDataMap;

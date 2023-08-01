@@ -1,6 +1,7 @@
 package com.example.brunchStory.member.service;
 
 
+
 import com.example.brunchStory.config.auth.AuthService;
 import com.example.brunchStory.config.exception.LoginFailException;
 import com.example.brunchStory.member.domain.entity.Member;
@@ -15,10 +16,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.Map;
 import java.util.Optional;
 
+import com.example.brunchStory.member.domain.request.SignupRequest;
+
+
+
 @Service
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
+
     private final AuthService authService;
 
 
@@ -37,6 +43,14 @@ public class MemberService {
     public Map<String, Object> getTokenToData(String token) {
         return authService.getClaims(token);
     }
+
+
+
+    public void insert(SignupRequest request){
+        memberRepository.save(request.toEntity());
+    }
+
+//    public void delete()
 
 
 
