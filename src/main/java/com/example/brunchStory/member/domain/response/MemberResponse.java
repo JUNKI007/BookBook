@@ -9,12 +9,13 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-
 public class MemberResponse extends MemberDto {
 //    subscribers,posts
     private List<PostDto> posts;
     private List<MemberDto> publishers;
+
 //    private List<>
+
 
     @QueryProjection
     public MemberResponse(Member member) {

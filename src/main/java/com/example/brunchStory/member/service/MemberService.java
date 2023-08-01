@@ -62,7 +62,9 @@ public class MemberService {
     }
 
 
-
+    public Member getCurrentlyAuthenticatedMember() {
+        return null;
+    }
 
 
 }

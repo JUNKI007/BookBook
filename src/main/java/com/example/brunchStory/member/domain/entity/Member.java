@@ -50,4 +50,7 @@ public class Member {
     private List<Subscribe> subscribers;
 
 
+    public boolean isEligibleForWriterApplication() {
+        return false;
+    }
 }
