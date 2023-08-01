@@ -25,15 +25,16 @@ public class BookService {
 
 
 
-    public void publish(BookRequest bookRequest,List<Long> posts,Long memberId ){
+    public void publish(BookRequest bookRequest,Long memberId ){
         //TODO 작가가 글을 모아서 발간을 해야함.
         //글이 자신의 것인지 재확인 필요함.
 
         Member member = Member.builder().id(memberId).build();
         Book book = bookRepository.save(bookRequest.toEntity(member));
 
-        List<Post> postsById = postService.findAllById(posts);
+        List<Post> postsById = postService.findAllById(bookRequest.getPosts());
         // findbyidandmember로 하는게 낫지않나 생각중.
+        // 왜냐면 자신의 글만 가져올 수 있어야함.
 
         List<Publish> publishes = null;
         Publish publish = new Publish(null,null,book);
@@ -52,13 +53,15 @@ public class BookService {
 
     }
 
-//    public BookResponse read(Long BookId){
-//
-//        Optional<Book> byId = bookRepository.findById(BookId);
-//        // n+1 해결해야함.
-//
-//        Book book = byId.orElseThrow(RuntimeException::new);
-//        //이걸 북리스폰스로 바꿔줘야함.
-//        return new BookResponse(book);
-//    }
+    public BookResponse read(Long BookId){
+
+        Optional<Book> byId = bookRepository.findByIdCustom(BookId);
+
+        Book book = byId.orElseThrow(RuntimeException::new);
+        // n+1 해결해야함.
+
+        //이걸 북리스폰스로 바꿔줘야함.
+        return new BookResponse(book);
+    }
+
 }

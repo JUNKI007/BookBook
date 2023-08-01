@@ -29,10 +29,10 @@ public class Member {
     private MemberRole role;
 
     @OneToMany(mappedBy = "member")
-    private List<Alarm> tellNewPost;
+    private List<Alarm> tellNewPost; // 아예
 
     @OneToMany(mappedBy = "member")
-    private List<Subscribe> subscribers;
+    private List<Subscribe> publishers;
 
     @OneToMany(mappedBy = "member")
     private List<Interest> interests;
@@ -46,7 +46,7 @@ public class Member {
     private List<Book> books;
 
     @OneToMany(mappedBy = "author")
-    private List<Subscribe> publishers;
+    private List<Subscribe> subscribers;
 
 
 }
