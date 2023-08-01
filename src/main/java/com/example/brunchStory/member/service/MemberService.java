@@ -1,7 +1,5 @@
 package com.example.brunchStory.member.service;
 
-
-
 import com.example.brunchStory.config.auth.AuthService;
 import com.example.brunchStory.config.exception.LoginFailException;
 import com.example.brunchStory.member.domain.entity.Member;
@@ -17,7 +15,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import com.example.brunchStory.member.domain.request.SignupRequest;
-
 
 
 @Service

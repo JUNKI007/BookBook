@@ -3,7 +3,6 @@ package com.example.brunchStory.post.repository;
 import com.example.brunchStory.post.domain.dto.PostCondition;
 import com.example.brunchStory.post.domain.entity.Post;
 
-
 import static com.example.brunchStory.post.domain.entity.QPost.post;
 import static com.example.brunchStory.member.domain.entity.QMember.member;
 
