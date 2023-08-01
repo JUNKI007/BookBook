@@ -5,8 +5,11 @@ import com.example.brunchStory.config.exception.LoginFailException;
 import com.example.brunchStory.member.domain.entity.Member;
 import com.example.brunchStory.member.domain.request.LoginRequest;
 import com.example.brunchStory.member.domain.response.LoginResponse;
+import com.example.brunchStory.member.domain.response.MemberResponse;
 import com.example.brunchStory.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+//import org.springframework.security.access.prepost.PreAuthorize;
+
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -45,7 +48,20 @@ public class MemberService {
         memberRepository.save(request.toEntity());
     }
 
-//    public void delete()
+    public void delete(Long id){
+        memberRepository.deleteById(id);
+    }
+
+    public MemberResponse findById(Long id){
+        Optional<Member> byId = memberRepository.findById(id);
+
+        Member member = byId.orElseThrow(RuntimeException::new);
+        MemberResponse memberResponse = new MemberResponse(member);
+
+        return memberResponse;
+    }
+
+
 
 
 

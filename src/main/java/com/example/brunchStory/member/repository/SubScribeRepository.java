@@ -1,3 +1,4 @@
+
 package com.example.brunchStory.member.repository;
 
 import com.example.brunchStory.member.domain.entity.Member;
@@ -26,3 +27,4 @@ public interface SubScribeRepository extends JpaRepository<Subscribe, Long> {
     @Query("SELECT COUNT(s) FROM Subscribe s WHERE s.author = :author")
     Long countByAuthor(@Param("author") Member author);
 }
+

@@ -14,6 +14,7 @@ import java.util.Map;
 
 @Service
 public class AuthService {
+
     @Value("${jwt.secret}")
     private String secretKey;
 
@@ -24,7 +25,7 @@ public class AuthService {
                 .claim("memberId", member.getId())
                 .claim("email", member.getEmail())
                 .claim("role", member.getRole())
-                .setExpiration(new Date(System.currentTimeMillis() + 600_000))
+                .setExpiration(new Date(System.currentTimeMillis() + 30_000_000))
                 .signWith(key)
                 .compact();
         return compact;
@@ -32,8 +33,8 @@ public class AuthService {
 
 
     private SecretKeySpec getSecretKeySpec() {
-        SignatureAlgorithm hs256 = SignatureAlgorithm.HS256;
-        SecretKeySpec key = new SecretKeySpec(secretKey.getBytes(), hs256.getJcaName());
+        SignatureAlgorithm hs384 = SignatureAlgorithm.HS384;
+        SecretKeySpec key = new SecretKeySpec(secretKey.getBytes(), hs384.getJcaName());
         return key;
     }
 

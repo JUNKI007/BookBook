@@ -15,7 +15,7 @@ import java.util.List;
 public class BookRequest {
 
     private String bookName;
-    private List<Integer> posts;
+    private List<Long> posts;
 
     public Book toEntity(Member member){
         return Book.builder()
