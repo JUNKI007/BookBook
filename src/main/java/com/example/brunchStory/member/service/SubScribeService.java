@@ -1,3 +1,4 @@
+
 package com.example.brunchStory.member.service;
 
 import com.example.brunchStory.member.domain.entity.Member;
@@ -65,3 +66,4 @@ public class SubScribeService {
         }
     }
 }
+
