@@ -47,9 +47,7 @@ public class WriterApplyService {
     public void approveWriterApply(Long applyId){
         WriterApply writerApply = writerApplyRepository.findById(applyId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 작가 신청 정보를 찾을 수 없습니다."));
-
         writerApply.setLocalDate(LocalDate.now());
-
         Member applicant = writerApply.getApplicant();
         applicant.setRole(MemberRole.ROLE_AUTHOR);
     }
