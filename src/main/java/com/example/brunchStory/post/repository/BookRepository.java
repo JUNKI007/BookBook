@@ -10,6 +10,6 @@ import java.util.Optional;
 
 public interface BookRepository extends JpaRepository<Book, Long>{
 
-    @Query("SELECT b FROM Book b INNER JOIN b.member INNER JOIN b.publishedPosts where b.id = :id")
+    @Query("SELECT b FROM Book b INNER JOIN b.author INNER JOIN b.publishedPosts where b.id = :id")
     public Optional<Book> findByIdCustom(@Param("id") Long bookId);
 }
