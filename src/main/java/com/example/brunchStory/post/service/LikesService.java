@@ -26,6 +26,11 @@ public class LikesService {
         Member member = Member.builder().id(memberId).build();
         Post post = postService.findById(postId);
         Likes likes =  likesRepository.findByMemberAndPost(member, post);
+        if (likes != null){
+            likesRepository.delete(likes);
+        }else {
+            throw new IllegalArgumentException("좋아요를 취소할 정보가 없습니다.");
+        }
     }
 
     public boolean hasLiked(Long memberId, Long postId){

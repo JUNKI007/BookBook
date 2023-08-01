@@ -52,4 +52,16 @@ public class SubScribeService {
         // memberId를 사용하여 Member를 찾는 로직을 구현합니다.
         return memberRepository.findById(memberId);
     }
+
+    public void validateMemberExists(Long memberId) {
+        if (findMemberById(memberId).isEmpty()) {
+            throw new IllegalArgumentException("해당 멤버를 찾을 수 없습니다.");
+        }
+    }
+
+    public void validateAuthorExists(Long authorId) {
+        if (findMemberById(authorId).isEmpty()) {
+            throw new IllegalArgumentException("해당 작가를 찾을 수 없습니다.");
+        }
+    }
 }

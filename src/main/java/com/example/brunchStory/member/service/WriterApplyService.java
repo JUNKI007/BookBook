@@ -53,13 +53,4 @@ public class WriterApplyService {
         Member applicant = writerApply.getApplicant();
         applicant.setRole(MemberRole.ROLE_AUTHOR);
     }
-
-
-//    void saveWriterApply(String title, String content, LocalDate localDate, Member applicant);
-//    WriterApply getWriterApplyById(Long id);
-//    List<WriterApply> getWriterAppliesByApplicant(Member applicant);
-//    List<WriterApply> getAllWriterApplies();
-//    void deleteWriterApply(Long id);
-    // 작가 신청 승인 메서드 추가
-//    void approveWriterApply(Long id);
 }
