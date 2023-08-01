@@ -1,9 +1,9 @@
-package com.example.brunchStory.post.domain.service;
+package com.example.brunchStory.post.service;
 
 import com.example.brunchStory.member.domain.entity.Member;
 import com.example.brunchStory.post.domain.dto.PostCondition;
 import com.example.brunchStory.post.domain.entity.Post;
-import com.example.brunchStory.post.domain.repository.PostRepository;
+import com.example.brunchStory.post.repository.PostRepository;
 import com.example.brunchStory.post.domain.request.PostRequest;
 import com.example.brunchStory.post.domain.response.PostResponse;
 import lombok.RequiredArgsConstructor;

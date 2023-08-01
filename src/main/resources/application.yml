@@ -25,5 +25,6 @@ spring:
           starttls:
             enable: false # 7 보안 관련 . 기본값 false 이것도 공부 필요함.
 
-  jwt:
-    secret: secret_keyhelloworldhello
+jwt:
+  secret:
+    key: x!A%D*G-KaPdSgVkYp3s5v8y/B?E(H+M

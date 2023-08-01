@@ -8,7 +8,9 @@ import com.example.brunchStory.member.domain.request.LoginRequest;
 import com.example.brunchStory.member.domain.response.LoginResponse;
 import com.example.brunchStory.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Map;
 import java.util.Optional;
@@ -18,6 +20,7 @@ import java.util.Optional;
 public class MemberService {
     private final MemberRepository memberRepository;
     private final AuthService authService;
+
 
 
     public LoginResponse login(LoginRequest request) {
@@ -34,6 +37,7 @@ public class MemberService {
     public Map<String, Object> getTokenToData(String token) {
         return authService.getClaims(token);
     }
+
 
 
 }

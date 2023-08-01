@@ -25,7 +25,7 @@ public class AuthAspect {
         String token = request.getRequest().getHeader("Authorization");
         System.out.println(token);
 
-        if(token == null) throw  new EmptyTokenException("토큰 내놔");
+        if(token == null) throw  new EmptyTokenException("토큰이 필요합니다");
         String replace = token.replace("Bearer ", "");
         authService.getClaims(replace);
 
@@ -33,5 +33,4 @@ public class AuthAspect {
 
         return proceed;
     }
-
 }
