@@ -29,6 +29,9 @@ public class Post {
     @ManyToOne
     private Member author;
 
+    @ManyToOne
+    private Subject subject;
+
     @OneToMany(mappedBy = "post")
     private List<Publish> publishes;
 
