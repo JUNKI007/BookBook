@@ -5,7 +5,7 @@ import com.example.brunchStory.member.domain.request.LoginRequest;
 import com.example.brunchStory.member.domain.response.LoginResponse;
 import com.example.brunchStory.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
+//import org.springframework.security.access.prepost.PreAuthorize;
 
 import com.example.brunchStory.member.domain.request.SignupRequest;
 import com.example.brunchStory.member.service.MemberService;
@@ -27,6 +27,13 @@ public class MemberController {
     }
 
 
+
+    @PostMapping("/signup")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void signup(@RequestBody SignupRequest signupRequest){
+        memberService.insert(signupRequest);
+    }
+
     @GetMapping("test1")
     @PreAuthorize("hasRole('ROLE_AUTHOR')")
     public void writerTest() {
@@ -44,12 +51,5 @@ public class MemberController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void adminTest() {
         System.out.println("관리자시군요");
-
-//    @PostMapping("/signup")
-////    @ResponseStatus(HttpStatus.CREATED)
-//    public void signup(@RequestBody SignupRequest signupRequest){
-//        memberService.insert(signupRequest);
-//
-//    }
     }
 }
