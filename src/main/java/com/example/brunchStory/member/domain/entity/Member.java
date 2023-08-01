@@ -33,7 +33,7 @@ public class Member {
     private List<Alarm> tellNewPost;
 
     @OneToMany(mappedBy = "member")
-    private List<Subscribe> subscribers;
+    private List<Subscribe> publishers;
 
     @OneToMany(mappedBy = "member")
     private List<Interest> interests;
@@ -47,7 +47,7 @@ public class Member {
     private List<Book> books;
 
     @OneToMany(mappedBy = "author")
-    private List<Subscribe> publishers;
+    private List<Subscribe> subscribers;
 
 
 }

@@ -5,6 +5,7 @@ import com.example.brunchStory.config.exception.LoginFailException;
 import com.example.brunchStory.member.domain.entity.Member;
 import com.example.brunchStory.member.domain.request.LoginRequest;
 import com.example.brunchStory.member.domain.response.LoginResponse;
+import com.example.brunchStory.member.domain.response.MemberResponse;
 import com.example.brunchStory.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 //import org.springframework.security.access.prepost.PreAuthorize;
@@ -51,7 +52,16 @@ public class MemberService {
         memberRepository.deleteById(id);
     }
 
-//    public void delete()
+    public MemberResponse findById(Long id){
+        Optional<Member> byId = memberRepository.findById(id);
+
+        Member member = byId.orElseThrow(RuntimeException::new);
+        MemberResponse memberResponse = new MemberResponse(member);
+
+        return memberResponse;
+    }
+
+
 
 
 

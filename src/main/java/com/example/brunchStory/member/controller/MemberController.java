@@ -1,8 +1,10 @@
 package com.example.brunchStory.member.controller;
 
 
+import com.example.brunchStory.member.domain.entity.Member;
 import com.example.brunchStory.member.domain.request.LoginRequest;
 import com.example.brunchStory.member.domain.response.LoginResponse;
+import com.example.brunchStory.member.domain.response.MemberResponse;
 import com.example.brunchStory.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 //import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,6 +15,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -54,5 +58,10 @@ public class MemberController {
     @GetMapping("/delete/{id}")
     public void delete(@PathVariable("id") Long id){
         memberService.delete(id);
+    }
+
+    @GetMapping("/findById/{id}")
+    public MemberResponse findById(@PathVariable("id") Long id){
+        return memberService.findById(id);
     }
 }
