@@ -13,5 +13,6 @@ import java.util.List;
 public interface WriterApplyRepository extends JpaRepository<WriterApply, Long> {
     List<WriterApply> findByApplicant(Member applicant);
 
+
 }
 

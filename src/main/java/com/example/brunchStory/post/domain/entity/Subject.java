@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -21,5 +22,10 @@ public class Subject {
     private Long id;
 
     private String name;
+    @OneToMany(mappedBy = "subject")
+    private List<Post> posts;
+
+    @OneToMany(mappedBy = "subject")
+    private List<Post> posts;
 
 }

@@ -2,10 +2,7 @@ package com.example.brunchStory.post.domain.entity;
 
 import com.example.brunchStory.member.domain.entity.Member;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -29,6 +26,9 @@ public class Post {
     @ManyToOne
     private Member author;
 
+    @ManyToOne
+    private Subject subject;
+
     @OneToMany(mappedBy = "post")
     private List<Publish> publishes;
 
@@ -37,4 +37,6 @@ public class Post {
 
     @OneToMany(mappedBy = "post")
     private List<Comment> comments;
+
+
 }
