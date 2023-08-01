@@ -10,6 +10,7 @@ import com.example.brunchStory.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -27,7 +28,12 @@ public class MemberService {
                 .orElseThrow(() -> new LoginFailException("존재하지 않는 유저입니다"));
 
         String token = authService.makeToken(member);
-        return new LoginResponse(member.getId(), member.getName(), member.getEmail(), member.getRole(), token);
+        return new LoginResponse(member.getId(), member.getEmail(), member.getRole(), token);
     }
+
+    public Map<String, Object> getTokenToData(String token) {
+        return authService.getClaims(token);
+    }
+
 
 }
