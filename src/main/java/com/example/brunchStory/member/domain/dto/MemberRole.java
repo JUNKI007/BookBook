@@ -1,7 +1,14 @@
 package com.example.brunchStory.member.domain.dto;
 
-public enum MemberRole {
+import org.springframework.security.core.GrantedAuthority;
+
+public enum MemberRole implements GrantedAuthority {
     ROLE_ADMIN,
     ROLE_AUTHOR,
-    ROLE_MEMBER
+    ROLE_MEMBER;
+
+    @Override
+    public String getAuthority() {
+        return name();
+    }
 }

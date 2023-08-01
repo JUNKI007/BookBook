@@ -30,7 +30,7 @@ public class Member {
 
 
     @OneToMany(mappedBy = "member")
-    private List<Alarm> tellNewPost;
+    private List<Alarm> tellNewPost; // 아예
 
     @OneToMany(mappedBy = "member")
     private List<Subscribe> publishers;

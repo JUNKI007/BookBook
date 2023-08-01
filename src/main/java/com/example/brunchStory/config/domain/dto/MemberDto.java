@@ -1,4 +1,5 @@
 package com.example.brunchStory.config.domain.dto;
+
 import com.example.brunchStory.member.domain.dto.MemberRole;
 import com.example.brunchStory.member.domain.entity.Member;
 import com.example.brunchStory.member.domain.entity.Subscribe;
@@ -7,6 +8,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 @Getter
 @NoArgsConstructor
 public class MemberDto {
@@ -15,6 +17,7 @@ public class MemberDto {
     private String name;
     private String email;
     private MemberRole role;
+
     public MemberDto(Member member) {
         this.id = member.getId();
         this.userId = member.getUserId();
@@ -23,5 +26,5 @@ public class MemberDto {
         this.role = member.getRole();
     }
 
-
 }
+
