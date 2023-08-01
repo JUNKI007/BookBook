@@ -5,8 +5,7 @@ import com.example.brunchStory.post.domain.entity.Book;
 import com.example.brunchStory.post.domain.entity.Post;
 import com.example.brunchStory.post.domain.entity.Publish;
 import com.example.brunchStory.post.domain.request.BookRequest;
-import com.example.brunchStory.post.domain.response.BookResponse;
-import com.example.brunchStory.post.domain.response.PostResponse;
+
 import com.example.brunchStory.post.repository.BookRepository;
 import com.example.brunchStory.post.repository.PublishRepository;
 import lombok.RequiredArgsConstructor;
@@ -53,13 +52,13 @@ public class BookService {
 
     }
 
-    public BookResponse read(Long BookId){
-
-        Optional<Book> byId = bookRepository.findById(BookId);
-        // n+1 해결해야함.
-
-        Book book = byId.orElseThrow(RuntimeException::new);
-        //이걸 북리스폰스로 바꿔줘야함.
-        return new BookResponse(book);
-    }
+//    public BookResponse read(Long BookId){
+//
+//        Optional<Book> byId = bookRepository.findById(BookId);
+//        // n+1 해결해야함.
+//
+//        Book book = byId.orElseThrow(RuntimeException::new);
+//        //이걸 북리스폰스로 바꿔줘야함.
+//        return new BookResponse(book);
+//    }
 }
