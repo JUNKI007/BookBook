@@ -6,10 +6,11 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "publish")
-@Getter
+@Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Publish {
@@ -17,6 +18,7 @@ public class Publish {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
 
     @ManyToOne
     private Post post;

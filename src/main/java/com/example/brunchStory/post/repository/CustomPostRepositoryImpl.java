@@ -2,8 +2,10 @@ package com.example.brunchStory.post.repository;
 
 import com.example.brunchStory.post.domain.dto.PostCondition;
 import com.example.brunchStory.post.domain.entity.Post;
+
 import static com.example.brunchStory.post.domain.entity.QPost.post;
 import static com.example.brunchStory.member.domain.entity.QMember.member;
+
 import com.example.brunchStory.post.domain.response.PostResponse;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -14,12 +16,15 @@ import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 
+
+
 public class CustomPostRepositoryImpl implements CustomPostRepository{
 
     private final JPAQueryFactory queryFactory;
 
     @Override
     public Page<PostResponse> findAllByCondition(PageRequest request, PostCondition condition) {
+
         JPAQuery<Post> posts = queryFactory
                 .select(post)
                 .from(post)
