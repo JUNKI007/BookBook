@@ -4,8 +4,10 @@ import com.example.brunchStory.member.domain.entity.Member;
 import com.example.brunchStory.member.domain.response.MemberResponse;
 import com.example.brunchStory.member.service.MemberService;
 import com.example.brunchStory.post.domain.dto.PostCondition;
+import com.example.brunchStory.post.domain.dto.SubjectWithPost;
 import com.example.brunchStory.post.domain.entity.Post;
 import com.example.brunchStory.post.domain.entity.Subject;
+import com.example.brunchStory.post.domain.response.PostResponseForMail;
 import com.example.brunchStory.post.repository.PostRepository;
 import com.example.brunchStory.post.domain.request.PostRequest;
 import com.example.brunchStory.post.domain.response.PostResponse;
@@ -14,8 +16,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.List;
-import java.util.Optional;
+
+import java.time.LocalDateTime;
+import java.util.*;
 
 
 @Service
@@ -31,7 +34,7 @@ public class PostService {
 
 
     public void write(Long memberId, PostRequest postRequest){
-        //TODO 멤버 아이디로 멤버 찾아오기
+
         Member member = Member.builder().id(memberId).build();
 
         Subject subject = subjectService.findById(postRequest.getSubjectNum());
@@ -74,14 +77,34 @@ public class PostService {
         return postRepository.findAllByCondition(pageRequest,postCondition);
     }
     @Transactional(readOnly = true)
-    public Page<PostResponse> findAllByFavorite(Long memberId, PageRequest pageRequest){
-        MemberResponse byId = memberService.findById(memberId);
+    public List<PostResponseForMail> findAllByLike(){
 
+        List<Post> allByLike = postRepository.findAllByLike(LocalDateTime.now().minusDays(1));
+        // 현재 시간보다 하루전부터 쓰여진 글만 가져오기.
+        // 좋아요가 5이상인 글을 뽑아오기.
+        return allByLike.stream().map(PostResponseForMail::new).toList();
 
-        // 멤버 아이디로 멤버 찾아서 그 유저의 흥미 뽑아오기 ( 리스트로 )
-        // 그 흥미에 맞게 글을 찾아와야하는데, 중복이 되면 안됨.
-        return  null;
+    }
+
+    public Map<Long, List<PostResponseForMail>> makeSubjectBox(){
+        List<PostResponseForMail> allByLike = findAllByLike();
+
+        List<SubjectWithPost> subjectBox = new ArrayList<>();
+        Map<Long, List<PostResponseForMail>> topicMap = new HashMap<>();
+
+        for (PostResponseForMail post:
+                allByLike) {
+                Long topic = post.getSubjectNum();
+                List<PostResponseForMail> topicPosts = topicMap.getOrDefault(topic, new ArrayList<>());
+                topicPosts.add(post);
+                topicMap.put(topic, topicPosts);
+            }
+
+        return topicMap;
+        }
+
+        // 해당 토픽을 좋아하는 사람들의 email list를 가져와야한다. ( 멤버 서비스)
+        //
     }
 
 
-}
