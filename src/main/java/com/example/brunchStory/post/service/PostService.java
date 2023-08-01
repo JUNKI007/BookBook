@@ -33,8 +33,14 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public Page<PostResponse> findAll(PostCondition postCondition, PageRequest pageRequest){
+    public Page<PostResponse> findAllByCondition(PostCondition postCondition, PageRequest pageRequest){
         return postRepository.findAllByCondition(pageRequest,postCondition);
+    }
+    @Transactional(readOnly = true)
+    public Page<PostResponse> findAllByFavorite(Integer memberId, PageRequest pageRequest){
+        // 멤버 아이디로 멤버 찾아서 그 유저의 흥미 뽑아오기 ( 리스트로 )
+        // 그 흥미에 맞게 글을 찾아와야하는데, 중복이 되면 안됨.
+        return  null;
     }
 
 
