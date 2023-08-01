@@ -23,8 +23,6 @@ public class Subject {
 
     private String name;
 
-    @OneToMany(mappedBy = "subject")
-    private List<Post> posts;
 
 
 }

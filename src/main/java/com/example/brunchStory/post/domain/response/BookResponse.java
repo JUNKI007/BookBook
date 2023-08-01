@@ -15,7 +15,8 @@ public class BookResponse extends BookDto {
 
     public BookResponse(Book book){
         super(book);
-        this.memberDto = new MemberDto(book.getAuthor());
+      this.memberDto = new MemberDto(book.getAuthor());
         this.postDtos = book.getPublishedPosts().stream().map(PostDto::new).toList();
     }
 }
+
