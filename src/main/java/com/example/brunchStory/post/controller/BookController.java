@@ -20,7 +20,7 @@ public class BookController {
 
     @GetMapping("{id}")
     @PreAuthorize("hasAnyRole('ROLE_AUTHOR', 'ROLE_MEMBER')")
-    public BookResponse readBook (@PathVariable Long BookId){
+    public BookResponse readBook (@PathVariable(name = "id") Long BookId){
 
         return bookService.read(BookId);
     }

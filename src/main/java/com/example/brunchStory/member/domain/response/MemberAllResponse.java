@@ -1,5 +1,6 @@
 package com.example.brunchStory.member.domain.response;
 
+
 import com.example.brunchStory.config.domain.dto.MemberDto;
 import com.example.brunchStory.config.domain.dto.SubjectDto;
 import com.example.brunchStory.member.domain.entity.Member;
@@ -16,4 +17,6 @@ public class MemberAllResponse extends MemberDto{
         super(member);
         interests = member.getInterests().stream().map(m->new SubjectDto(m.getSubject())).toList();
     }
+
 }
+

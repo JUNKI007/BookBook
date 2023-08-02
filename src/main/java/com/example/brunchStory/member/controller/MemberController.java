@@ -44,6 +44,7 @@ public class MemberController {
     @PreAuthorize("hasAnyRole('ROLE_AUTHOR', 'ROLE_MEMBER')")
     @GetMapping("/{id}/member")
     public MemberResponse findByMember(@PathVariable("id") Long id) {
+
         return memberService.findByMember(id);
     }
 

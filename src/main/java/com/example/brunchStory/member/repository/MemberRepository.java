@@ -8,11 +8,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 
+import java.util.List;
 import java.util.Optional;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
     Optional<Member> findByUserIdAndPassword(String userId, String password);
+
 
     @Query("select m from Member m" +
             " left join m.publishers p " +
@@ -31,4 +33,13 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     @Query("select m from Member m left join fetch m.interests")
     Page<Member> findAllMember(Pageable request);
+
+    @Query("select m from Member m inner join fetch m.publishers")
+    Page<Member> findAllBy(Pageable request);
+
+
+    @Query("select m from Member m left join fetch m.interests")
+    List<Member> findAllMemberForMail();
+
+
 }

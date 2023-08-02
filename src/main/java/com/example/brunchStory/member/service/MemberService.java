@@ -109,13 +109,24 @@ public class MemberService {
     }
 
 
-    // 전체 멤버찾기
+    // 전체멤버찾기
+
+
     public Page<MemberAllResponse> findAllMember(PageRequest pageRequest){
         Page<Member> memberAll = memberRepository.findAllMember(pageRequest);
         return memberAll.map(MemberAllResponse::new);
     }
 
+    public List<MemberAllResponse> findAllMemberForMail(){
+        List<Member> allMemberForMail = memberRepository.findAllMemberForMail();
 
+        return allMemberForMail.stream().map(MemberAllResponse::new).toList();
+    }
 
+    public Member findById(Long id){
+        Optional<Member> byId = memberRepository.findById(id);
+        Member member = byId.orElseThrow(RuntimeException::new);
+        return member;
+    }
 
 }
