@@ -11,6 +11,7 @@ import com.example.brunchStory.member.domain.request.SignupRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/members")
@@ -29,6 +30,7 @@ public class MemberController {
     public void delete(@PathVariable("id") Long id){
         memberService.delete(id);
     }
+
     @PreAuthorize("hasAnyRole('ROLE_AUTHOR', 'ROLE_MEMBER')")
     @GetMapping("/findById/{id}")
     public MemberResponse findById(@PathVariable("id") Long id) {

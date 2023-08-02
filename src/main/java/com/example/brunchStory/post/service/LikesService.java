@@ -26,6 +26,7 @@ public class LikesService {
         Member member = Member.builder().id(memberId).build();
         Post post = postService.findById(postId);
         Likes likes =  likesRepository.findByMemberAndPost(member, post);
+
         if (likes != null){
             likesRepository.delete(likes);
         }else {

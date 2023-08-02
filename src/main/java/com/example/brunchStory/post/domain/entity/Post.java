@@ -4,6 +4,8 @@ import com.example.brunchStory.member.domain.entity.Member;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -22,6 +24,8 @@ public class Post {
     private String content;
 
     private int likeCount;
+
+    private LocalDateTime localDateTime;
 
     @ManyToOne
     private Member author;
