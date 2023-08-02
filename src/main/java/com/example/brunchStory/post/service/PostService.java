@@ -1,6 +1,9 @@
 package com.example.brunchStory.post.service;
 
+import com.example.brunchStory.config.domain.dto.SubjectDto;
+import com.example.brunchStory.email.service.EmailService;
 import com.example.brunchStory.member.domain.entity.Member;
+import com.example.brunchStory.member.domain.response.MemberAllResponse;
 import com.example.brunchStory.member.domain.response.MemberResponse;
 import com.example.brunchStory.member.service.MemberService;
 import com.example.brunchStory.post.domain.dto.PostCondition;
@@ -11,12 +14,15 @@ import com.example.brunchStory.post.domain.response.PostResponseForMail;
 import com.example.brunchStory.post.repository.PostRepository;
 import com.example.brunchStory.post.domain.request.PostRequest;
 import com.example.brunchStory.post.domain.response.PostResponse;
+import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -28,6 +34,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final MemberService memberService;
     private final SubjectService subjectService;
+    private final EmailService emailService;
 
 
 
@@ -45,16 +52,20 @@ public class PostService {
 
     }
 
-    public void delete(Integer postId, Integer memberId){
-        //TODO 내 글이 맞는지 확인
-
-
+    public void delete(Long postId, Long memberId) throws SQLIntegrityConstraintViolationException {
+        Member author = Member.builder().id(memberId).build();
+        try {
+            int isDone = postRepository.deleteCustom(postId, author);
+        }catch (Exception e){
+                throw new SQLIntegrityConstraintViolationException("지울 수 없는 글입니다.");
+            }
     }
 
     public List<Post>findAllById(List<Long> postIds){ // 아이디들로 모든 글 찾아오기
         List<Post> allById = postRepository.findAllById(postIds);
         return allById;
     }
+    // 이건 책을 발간하기 위한 작업임.
 
     public Post findById(Long postId){ // 글 하나 찾아오기.
         Optional<Post> byId = postRepository.findById(postId);
@@ -65,7 +76,6 @@ public class PostService {
     }
 
     public PostResponse findByIdCustom(Long postId){
-        System.out.println(postId);
 
         Optional<Post> byIdCustom = postRepository.findByIdCustom(postId);
         Post post = byIdCustom.orElseThrow(() -> new RuntimeException());
@@ -106,7 +116,27 @@ public class PostService {
 
         return topicMap;
         }
+    public void sendMailTest(){
+        List<MemberAllResponse> forMailService = memberService.findAllMemberForMail();
 
+        Map<Long, List<PostResponseForMail>> map = makeSubjectBox();
+
+        for (MemberAllResponse member:
+             forMailService) {
+            List<PostResponseForMail> forMails = new ArrayList<>();
+
+            for (SubjectDto subjectDto:
+                 member.getInterests()) {
+                List<PostResponseForMail> postResponseForMails = map.getOrDefault(subjectDto.getId(),new ArrayList<>());
+
+                forMails.addAll(postResponseForMails);
+            }
+
+            String content = new Gson().toJson(forMails);
+
+            emailService.sendForSubscriber(member.getEmail(),content);
+        }
+    }
         // 해당 토픽을 좋아하는 사람들의 email list를 가져와야한다. ( 멤버 서비스)
         //
     }

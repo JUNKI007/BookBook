@@ -2,19 +2,22 @@ package com.example.brunchStory.email.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
+import java.util.concurrent.Executor;
+
 @Configuration
+@EnableAsync
 public class EmailConfig {
 
-    @Bean
-    public ThreadPoolTaskExecutor taskExecutor() {
-        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(10); // 기본적으로 유지할 스레드 수
-        executor.setMaxPoolSize(20); // 최대 스레드 수 (큐가 꽉 찼을 때 추가 생성)
-        executor.setQueueCapacity(30); // 작업 큐 사이즈
-        executor.setThreadNamePrefix("MyExecutor-"); // 스레드 이름 접두사
-        executor.initialize(); // 초기화
-        return executor;
+    @Bean(name = "threadPoolTaskExecutor")
+    public Executor threadPoolTaskExecutor() {
+        ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
+        taskExecutor.setCorePoolSize(3); // 기본 스레드 수
+        taskExecutor.setMaxPoolSize(30); // 최대 스레드 수
+        taskExecutor.setQueueCapacity(100); // Queue 사이즈
+        taskExecutor.setThreadNamePrefix("Executor-");
+        return taskExecutor;
     }
 }

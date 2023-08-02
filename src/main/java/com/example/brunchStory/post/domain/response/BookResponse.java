@@ -5,9 +5,10 @@ import com.example.brunchStory.config.domain.dto.MemberDto;
 import com.example.brunchStory.config.domain.dto.PostDto;
 import com.example.brunchStory.post.domain.entity.Book;
 import com.example.brunchStory.post.domain.entity.Publish;
+import lombok.Getter;
 
 import java.util.List;
-
+@Getter
 public class BookResponse extends BookDto {
 
     private MemberDto authorDto;

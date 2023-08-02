@@ -18,9 +18,9 @@ public class SubScribeService {
     private final MemberService memberService;
 
     public void subscribe(Long authorId, Long memberId) {
-        MemberResponse authorResponse = memberService.findById(authorId);
+        Member author = memberService.findById(authorId);
         Member member = Member.builder().id(memberId).build();
-        Member author = Member.builder().id(authorResponse.getId()).build();
+
 
         // 현재 시간 정보를 가져옵니다.
         LocalDate subscribeTime = LocalDate.now();
@@ -34,31 +34,27 @@ public class SubScribeService {
     }
 
     public void unsubscribe(Long authorId, Long memberId) {
-        MemberResponse authorResponse = memberService.findById(authorId);
+        Member author = memberService.findById(authorId);
         Member member = Member.builder().id(memberId).build();
-        Member author = Member.builder().id(authorResponse.getId()).build();
         subScribeRepository.deleteByAuthorAndMember(author, member);
     }
 
     public boolean isSubscribed(Long authorId, Long memberId) {
-        MemberResponse authorResponse = memberService.findById(authorId);
+        Member author= memberService.findById(authorId);
         Member member = Member.builder().id(memberId).build();
-        Member author = Member.builder().id(authorResponse.getId()).build();
         return subScribeRepository.existsByAuthorAndMember(author, member);
     }
 
     public Long getSubscriberCount(Long authorId) {
-        MemberResponse authorResponse = memberService.findById(authorId);
+        Member author = memberService.findById(authorId);
 
-        Member author = Member.builder().id(authorResponse.getId()).build();
         return subScribeRepository.countByAuthor(author);
     }
 
     public List<Subscribe> getSubscriptions(Long memberId, Long authorId) {
 
-        MemberResponse authorResponse = memberService.findById(authorId);
+        Member author = memberService.findById(authorId);
         Member member = Member.builder().id(memberId).build();
-        Member author = Member.builder().id(authorResponse.getId()).build();
         return subScribeRepository.findByMemberAndAuthor(member, author);
     }
 }
