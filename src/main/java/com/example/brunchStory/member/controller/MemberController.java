@@ -1,13 +1,16 @@
 package com.example.brunchStory.member.controller;
+
 import com.example.brunchStory.member.domain.request.LoginRequest;
 import com.example.brunchStory.member.domain.response.LoginResponse;
 import com.example.brunchStory.member.domain.response.MemberResponse;
 import com.example.brunchStory.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
+
 import com.example.brunchStory.member.domain.request.SignupRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/members")
@@ -31,6 +34,7 @@ public class MemberController {
     public MemberResponse findById(@PathVariable("id") Long id) {
         return memberService.findByMember(id);
     }
+
     @GetMapping("test1")
     @PreAuthorize("hasRole('ROLE_AUTHOR')")
     public void writerTest() {
