@@ -6,11 +6,14 @@ import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 
+import java.util.List;
+
 public record SignupRequest(
                             String userId,
                             String password,
                             String name,
-                            String email
+                            String email,
+                            List<Long> subject
                             ) {
     public Member toEntity(){
 

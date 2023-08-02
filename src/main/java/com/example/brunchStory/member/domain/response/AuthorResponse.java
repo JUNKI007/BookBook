@@ -2,6 +2,7 @@ package com.example.brunchStory.member.domain.response;
 
 import com.example.brunchStory.config.domain.dto.MemberDto;
 import com.example.brunchStory.config.domain.dto.PostDto;
+import com.example.brunchStory.config.domain.dto.SubjectDto;
 import com.example.brunchStory.member.domain.entity.Member;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
@@ -13,6 +14,7 @@ public class AuthorResponse extends MemberDto{
     //    subscribers,posts
     private List<PostDto> posts; // 작품
     private List<MemberDto> publishers; // 작가(유튜버)
+    private List<SubjectDto> interests; // 관심사
     private List<MemberDto> subscribers; // 구독자
 
     @QueryProjection
@@ -22,6 +24,7 @@ public class AuthorResponse extends MemberDto{
                 .stream().map(PostDto::new).toList();
         publishers = member.getPublishers().stream().map(p->new MemberDto(p.getAuthor())).toList();
         subscribers = member.getSubscribers().stream().map(p->new MemberDto(p.getMember())).toList();
+        interests = member.getInterests().stream().map(m->new SubjectDto(m.getSubject())).toList();
 
     }
 

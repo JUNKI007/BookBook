@@ -29,7 +29,7 @@ public class LikesService {
             likesRepository.save(likes);
             post.setLikeCount(post.getLikeCount() + 1);
         }
-        postService.savePost(post);
+//        postService.savePost(post);
     }
 
 

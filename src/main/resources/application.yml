@@ -8,12 +8,17 @@ spring:
   jpa:
     hibernate:
 
+
+
+
       ddl-auto: none
+
 
     show-sql: true
     properties:
       hibernate:
         format_sql: true
+#        default_batch_fetch_size: 100
   mail:
     host: smtp.gmail.com # 1 서버 호스트
     port: 587 # 2 포트

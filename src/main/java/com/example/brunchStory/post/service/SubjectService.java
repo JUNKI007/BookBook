@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,5 +19,11 @@ public class SubjectService {
         Optional<Subject> byId = subjectRepository.findById(SubjectId);
         Subject subject = byId.orElseThrow(() -> new RuntimeException());
         return subject;
+    }
+
+    public List<Subject> findAllByIds(List<Long> subjectIds){
+        List<Subject> allById = subjectRepository.findAllByIdIn(subjectIds);
+
+        return allById;
     }
 }

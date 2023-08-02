@@ -38,9 +38,12 @@ public class SubScribeService {
     }
     public Long getSubscriberCount(Long authorId) {
         Member author = memberService.findById(authorId);
+
         return subScribeRepository.countByAuthor(author);
     }
+  
     public List<Subscribe> getSubscriptions(Long memberId, Long authorId) {
+
         Member author = memberService.findById(authorId);
         Member member = Member.builder().id(memberId).build();
         return subScribeRepository.findByMemberAndAuthor(member, author);

@@ -27,6 +27,5 @@ public class PostRequest {
                 .localDateTime(LocalDateTime.now())
                 .likeCount(0)
                 .build();
-
     }
 }

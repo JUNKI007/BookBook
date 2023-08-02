@@ -37,7 +37,7 @@ public class AuthService {
                 .claim("memberId", member.getId())
                 .claim("email", member.getEmail())
                 .claim("role", member.getRole())
-                .setExpiration(new Date(System.currentTimeMillis() + 30_000_000))
+                .setExpiration(new Date(System.currentTimeMillis() + 300_000_000))
                 .signWith(key)
                 .compact();
         return compact;
@@ -56,5 +56,12 @@ public class AuthService {
                 .getBody();
     }
     //X 주어진 JWT 토큰을 파싱하여 토큰에 담겨 있는 claim들을 Map 형태로 반환 -> 이를 통해 토큰발행시 설정한 정보들을 확인할 수 있음
+
+
+    public boolean hasRole(String token, String role){
+        Map<String, Object> claims = getClaims(token);
+        String memberRole = (String) claims.get("role");
+        return memberRole.equals(role);
+    }
 
 }
