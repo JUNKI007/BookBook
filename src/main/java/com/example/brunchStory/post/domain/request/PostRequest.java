@@ -26,6 +26,5 @@ public class PostRequest {
                 .subject(subject)
                 .localDateTime(LocalDateTime.now())
                 .build();
-
     }
 }

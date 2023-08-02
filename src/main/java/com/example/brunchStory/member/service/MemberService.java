@@ -96,4 +96,11 @@ public class MemberService {
     }
 
 
+    public Member findById(Long id){
+        Optional<Member> byId = memberRepository.findById(id);
+        Member member = byId.orElseThrow(RuntimeException::new);
+        return member;
+    }
+
+
 }
