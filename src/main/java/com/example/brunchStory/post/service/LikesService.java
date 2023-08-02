@@ -14,24 +14,23 @@ import org.springframework.transaction.annotation.Transactional;
 public class LikesService {
     private final LikesRepository likesRepository;
     private final PostService postService;
-    public void like(Long memberId, Long postId){
+    public void Like(Long memberId, Long postId){
         Member member = Member.builder().id(memberId).build();
         Post post = postService.findById(postId);
-        Likes likes = new Likes();
-        likes.setMember(member);
-        likes.setPost(post);
-        likesRepository.save(likes);
-    }
-    public void  unlike(Long memberId, Long postId){
-        Member member = Member.builder().id(memberId).build();
-        Post post = postService.findById(postId);
-        Likes likes =  likesRepository.findByMemberAndPost(member, post);
-        if (likes != null){
-            likesRepository.delete(likes);
+        Likes existingLike = likesRepository.findByMemberAndPost(member, post);
+        if (existingLike != null){
+            likesRepository.delete(existingLike);
+            post.setLikeCount(post.getLikeCount() - 1);
         }else {
-            throw new IllegalArgumentException("좋아요를 취소할 정보가 없습니다.");
+            Likes likes = new Likes();
+            likes.setMember(member);
+            likes.setPost(post);
+            likesRepository.save(likes);
+            post.setLikeCount(post.getLikeCount() + 1);
         }
+        postService.savePost(post);
     }
+
 
     public boolean hasLiked(Long memberId, Long postId){
         Member member = Member.builder().id(memberId).build();

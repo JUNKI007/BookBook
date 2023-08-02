@@ -6,6 +6,7 @@ import com.example.brunchStory.post.domain.entity.Post;
 import com.example.brunchStory.post.domain.entity.Publish;
 import com.example.brunchStory.post.domain.request.BookRequest;
 
+import com.example.brunchStory.post.domain.response.BookResponse;
 import com.example.brunchStory.post.repository.BookRepository;
 import com.example.brunchStory.post.repository.PublishRepository;
 import lombok.RequiredArgsConstructor;

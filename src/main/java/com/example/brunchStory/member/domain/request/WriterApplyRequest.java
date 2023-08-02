@@ -11,9 +11,9 @@ public class WriterApplyRequest {
     private String title;
     private String content;
 
-    public WriterApply toEntity(){
+    public WriterApply toEntity(Member applicant){
         return WriterApply.builder().content(content)
-                .title(title).build();
+                .title(title).applicant(applicant).build();
     }
 }
 
