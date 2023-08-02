@@ -10,12 +10,12 @@ import java.util.List;
 
 public class BookResponse extends BookDto {
 
-    private MemberDto memberDto;
+    private MemberDto authorDto;
     private List<PostDto> postDtos;
 
     public BookResponse(Book book){
         super(book);
-      this.memberDto = new MemberDto(book.getAuthor());
+      this.authorDto = new MemberDto(book.getAuthor());
         this.postDtos = book.getPublishedPosts().stream().map(PostDto::new).toList();
     }
 }

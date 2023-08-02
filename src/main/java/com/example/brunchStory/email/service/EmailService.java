@@ -47,8 +47,8 @@ public class EmailService {
         // 보내는 것 자체는 여기서 하지만, 위와같은 과정은 다른곳에 존재햐아함.
 
         msg.setTo(email);
-        msg.setSubject("당신이 좋아할만한 글");
-        msg.setText();
+        msg.setSubject("당신이 좋아할만한 제목");
+        msg.setText("당신이 좋아할만한 글들");
 
         //emailContent = objectMapper.writeValueAsString(객체);
         //객체를 넣어서 json 형식으로 바꿔줌

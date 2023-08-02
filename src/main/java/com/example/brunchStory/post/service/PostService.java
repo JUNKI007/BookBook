@@ -76,8 +76,11 @@ public class PostService {
     public Page<PostResponse> findAllByCondition(PostCondition postCondition, PageRequest pageRequest){
         return postRepository.findAllByCondition(pageRequest,postCondition);
     }
+
+    ////////////////////////////////
+
     @Transactional(readOnly = true)
-    public List<PostResponseForMail> findAllByLike(){
+    private List<PostResponseForMail> findAllByLike(){
 
         List<Post> allByLike = postRepository.findAllByLike(LocalDateTime.now().minusDays(1));
         // 현재 시간보다 하루전부터 쓰여진 글만 가져오기.
@@ -86,6 +89,7 @@ public class PostService {
 
     }
 
+//////////////////////////////////////
     public Map<Long, List<PostResponseForMail>> makeSubjectBox(){
         List<PostResponseForMail> allByLike = findAllByLike();
 

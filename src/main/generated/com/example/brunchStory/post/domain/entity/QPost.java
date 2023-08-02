@@ -34,6 +34,8 @@ public class QPost extends EntityPathBase<Post> {
 
     public final ListPath<Likes, QLikes> likes = this.<Likes, QLikes>createList("likes", Likes.class, QLikes.class, PathInits.DIRECT2);
 
+    public final DateTimePath<java.time.LocalDateTime> localDateTime = createDateTime("localDateTime", java.time.LocalDateTime.class);
+
     public final ListPath<Publish, QPublish> publishes = this.<Publish, QPublish>createList("publishes", Publish.class, QPublish.class, PathInits.DIRECT2);
 
     public final QSubject subject;
