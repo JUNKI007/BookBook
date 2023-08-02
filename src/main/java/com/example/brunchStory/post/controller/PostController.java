@@ -1,8 +1,6 @@
 package com.example.brunchStory.post.controller;
 
 import com.example.brunchStory.config.auth.AuthService;
-import com.example.brunchStory.member.domain.request.LoginRequest;
-import com.example.brunchStory.member.domain.response.LoginResponse;
 import com.example.brunchStory.post.domain.request.PostRequest;
 import com.example.brunchStory.post.domain.response.PostResponse;
 import com.example.brunchStory.post.service.PostService;
@@ -32,7 +30,7 @@ public class PostController {
     public void post(@RequestBody PostRequest postRequest,
                       @RequestHeader("Authorization")String token) {
 
-        Map<String, Object> data = authService.getClaims(token.replace("Bearer ", ""));
+        Map<String, Object> data = authService.getClaims(token);
 
         Long memberId = ((Integer) data.get("memberId")).longValue();
         postService.write(memberId,postRequest);
