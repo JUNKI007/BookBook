@@ -21,6 +21,7 @@ public class LikesService {
         if (existingLike != null){
             likesRepository.delete(existingLike);
             post.setLikeCount(post.getLikeCount() - 1);
+
         }else {
             Likes likes = new Likes();
             likes.setMember(member);

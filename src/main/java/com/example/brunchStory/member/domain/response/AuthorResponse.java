@@ -9,20 +9,22 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-public class MemberResponse extends MemberDto {
-//    subscribers,posts
-
+public class AuthorResponse extends MemberDto{
+    //    subscribers,posts
+    private List<PostDto> posts; // 작품
     private List<MemberDto> publishers; // 작가(유튜버)
-
+    private List<MemberDto> subscribers; // 구독자
 
     @QueryProjection
-    public MemberResponse(Member member) {
+    public AuthorResponse(Member member) {
         super(member);
+        posts = member.getPosts()
+                .stream().map(PostDto::new).toList();
         publishers = member.getPublishers().stream().map(p->new MemberDto(p.getAuthor())).toList();
+        subscribers = member.getSubscribers().stream().map(p->new MemberDto(p.getMember())).toList();
 
     }
 
     // 리스폰스1 일반 멤버 : publishers(작가)만 가지고 있다
     // 리스폰스2 작가(author) : 싹다 posts, publishers, subscribers
-
 }

@@ -30,13 +30,16 @@ public class Member {
 
 
     @OneToMany(mappedBy = "member")
-    private List<Alarm> tellNewPost; // 아예
+    private List<Alarm> tellNewPost;
 
     @OneToMany(mappedBy = "member")
     private List<Subscribe> publishers;
 
     @OneToMany(mappedBy = "member")
     private List<Interest> interests;
+
+    @OneToMany(mappedBy = "member")
+    private List<Comment> comments;
 
     /// 멤버와 작가 구분 선
 
@@ -50,7 +53,7 @@ public class Member {
     private List<Subscribe> subscribers;
 
 
-    public boolean isEligibleForWriterApplication() {
-        return false;
-    }
+
+
+
 }
