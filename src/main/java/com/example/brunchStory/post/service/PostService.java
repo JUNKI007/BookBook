@@ -10,7 +10,6 @@ import com.example.brunchStory.member.domain.response.MemberResponse;
 
 import com.example.brunchStory.member.service.MemberService;
 import com.example.brunchStory.post.domain.dto.PostCondition;
-import com.example.brunchStory.post.domain.dto.SubjectWithPost;
 import com.example.brunchStory.post.domain.entity.Post;
 import com.example.brunchStory.post.domain.entity.Subject;
 import com.example.brunchStory.post.domain.response.PostResponseForMail;
@@ -82,8 +81,13 @@ public class PostService {
     }
     @Transactional(readOnly = true) // 조건에 맞게 찾아오기
     public Page<PostResponse> findAllByCondition(PostCondition postCondition, PageRequest pageRequest){
-        return postRepository.findAllByCondition(pageRequest,postCondition);
+
+        List<Subject> allByIds = subjectService.findAllByIds(postCondition.getInterest());
+
+        return postRepository.findAllByCondition(pageRequest,postCondition,allByIds);
     }
+
+    // 기능 실험 해야함.
 
     public void savePost(Post post) {
         postRepository.save(post);
@@ -99,9 +103,9 @@ public class PostService {
         return allByLike.stream().map(PostResponseForMail::new).toList();
     }
     //////////////////////////////////////
-    public Map<Long, List<PostResponseForMail>> makeSubjectBox(){
+    private Map<Long, List<PostResponseForMail>> makeSubjectBox(){
         List<PostResponseForMail> allByLike = findAllByLike();
-        List<SubjectWithPost> subjectBox = new ArrayList<>();
+
         Map<Long, List<PostResponseForMail>> topicMap = new HashMap<>();
         for (PostResponseForMail post:
                 allByLike) {
@@ -113,7 +117,7 @@ public class PostService {
         return topicMap;
     }
 
-    public void sendMailTest(){
+    public void sendMail(){
         List<MemberAllResponse> forMailService = memberService.findAllMemberForMail();
 
         Map<Long, List<PostResponseForMail>> map = makeSubjectBox();

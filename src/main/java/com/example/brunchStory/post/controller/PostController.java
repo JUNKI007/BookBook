@@ -1,11 +1,14 @@
 package com.example.brunchStory.post.controller;
 
 import com.example.brunchStory.config.auth.AuthService;
+import com.example.brunchStory.post.domain.dto.PostCondition;
 import com.example.brunchStory.post.domain.request.PostRequest;
 import com.example.brunchStory.post.domain.response.PostResponse;
 import com.example.brunchStory.post.domain.response.PostResponseForMail;
 import com.example.brunchStory.post.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,11 +23,20 @@ public class PostController {
     private final AuthService authService;
     private final PostService postService;
 
-    // 글 찾기
+    // 글 하나 찾기
     @GetMapping("{id}")
     public PostResponse findPostById(@PathVariable(name = "id") Long postId) {
         return postService.findByIdCustom(postId);
         //
+    }
+
+    //글 조건으로 찾기
+    @GetMapping
+    public Page<PostResponse> findAllByCondition(
+            @RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
+            @RequestParam(value = "size", required = false, defaultValue = "20") Integer size,
+            PostCondition condition){
+        return postService.findAllByCondition(condition, PageRequest.of(page,size));
     }
 
     // 글 쓰기
@@ -50,8 +62,8 @@ public class PostController {
         postService.delete(postId,memberId);
     }
     // 글 메일로 보내기
-    @GetMapping("mailtest")
+    @PostMapping("mailtest")
     public void mailService(){
-        postService.sendMailTest();
+        postService.sendMail();
     } // 이거 하면 메일 감.
 }
