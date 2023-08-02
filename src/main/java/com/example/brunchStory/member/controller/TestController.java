@@ -40,6 +40,8 @@ public class TestController {
     @GetMapping("/get-writer-applies")
     public List<WriterApply> getWriterAppliesForMember(@RequestHeader("Authorization") Long memberId) {
         return writerApplyService.getWriterAppliesForMember(memberId);
+
+
     }
 
 
