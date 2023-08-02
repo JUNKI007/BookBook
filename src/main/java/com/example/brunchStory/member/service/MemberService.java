@@ -6,6 +6,7 @@ import com.example.brunchStory.member.domain.entity.Member;
 import com.example.brunchStory.member.domain.request.LoginRequest;
 import com.example.brunchStory.member.domain.response.AuthorResponse;
 import com.example.brunchStory.member.domain.response.LoginResponse;
+import com.example.brunchStory.member.domain.response.MemberAllResponse;
 import com.example.brunchStory.member.domain.response.MemberResponse;
 import com.example.brunchStory.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -75,9 +76,23 @@ public class MemberService {
 
 
     // 전체멤버찾기
-    public Page<MemberResponse> findAllMember(PageRequest pageRequest){
-        Page<Member> memberAll = memberRepository.findAllBy(pageRequest);
-        return memberAll.map(MemberResponse::new);
+
+
+    public Page<MemberAllResponse> findAllMember(PageRequest pageRequest){
+        Page<Member> memberAll = memberRepository.findAllMember(pageRequest);
+        return memberAll.map(MemberAllResponse::new);
+    }
+
+    public List<MemberAllResponse> findAllMemberForMail(){
+        List<Member> allMemberForMail = memberRepository.findAllMemberForMail();
+
+        return allMemberForMail.stream().map(MemberAllResponse::new).toList();
+    }
+
+    public Member findById(Long id){
+        Optional<Member> byId = memberRepository.findById(id);
+        Member member = byId.orElseThrow(RuntimeException::new);
+        return member;
     }
 
 

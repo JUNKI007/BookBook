@@ -22,6 +22,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final ListPath<com.example.brunchStory.post.domain.entity.Book, com.example.brunchStory.post.domain.entity.QBook> books = this.<com.example.brunchStory.post.domain.entity.Book, com.example.brunchStory.post.domain.entity.QBook>createList("books", com.example.brunchStory.post.domain.entity.Book.class, com.example.brunchStory.post.domain.entity.QBook.class, PathInits.DIRECT2);
 
+    public final ListPath<com.example.brunchStory.post.domain.entity.Comment, com.example.brunchStory.post.domain.entity.QComment> comments = this.<com.example.brunchStory.post.domain.entity.Comment, com.example.brunchStory.post.domain.entity.QComment>createList("comments", com.example.brunchStory.post.domain.entity.Comment.class, com.example.brunchStory.post.domain.entity.QComment.class, PathInits.DIRECT2);
+
     public final StringPath email = createString("email");
 
     public final NumberPath<Long> id = createNumber("id", Long.class);

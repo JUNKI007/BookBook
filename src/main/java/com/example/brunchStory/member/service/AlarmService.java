@@ -14,9 +14,16 @@ public class AlarmService {
     public void createPostAlarm(Long authorId, Long memberId) {
         Member author = memberService.findById(authorId);
         Member member = Member.builder().id(memberId).build();
+
+
+
+
         Alarm alarm = new Alarm();
         alarm.setMember(member);
         alarm.setAuthor(author);
         alarmRepository.save(alarm);
     }
+
+
 }
+
