@@ -8,7 +8,7 @@ import com.example.brunchStory.member.domain.response.LoginResponse;
 import com.example.brunchStory.member.domain.response.MemberResponse;
 import com.example.brunchStory.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-//import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import org.springframework.stereotype.Service;
 
@@ -60,9 +60,5 @@ public class MemberService {
 
         return memberResponse;
     }
-
-
-
-
 
 }
