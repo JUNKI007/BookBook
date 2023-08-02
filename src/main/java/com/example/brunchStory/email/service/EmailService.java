@@ -17,8 +17,6 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class EmailService {
-
-    private final ThreadPoolTaskExecutor taskExecutor;
     private final MailSender mailSender;
     private final MemberService memberService;
     private final ObjectMapper objectMapper;

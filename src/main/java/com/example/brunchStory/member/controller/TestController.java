@@ -40,10 +40,7 @@ public class TestController {
     @GetMapping("/get-writer-applies")
     public List<WriterApply> getWriterAppliesForMember(@RequestHeader("Authorization") Long memberId) {
         return writerApplyService.getWriterAppliesForMember(memberId);
-
-
     }
-
 
     @PostMapping("/subscribe/{authorId}/{memberId}")
     public void subscribe(@PathVariable Long authorId, @PathVariable Long memberId) {
@@ -66,7 +63,7 @@ public class TestController {
     }
 
     @GetMapping("/subscriptions/{memberId}/{authorId}")
-    public List<Subscribe> getSubscriptions(@PathVariable Long memberId, @PathVariable Long authorId) {
+    public Subscribe getSubscriptions(@PathVariable Long memberId, @PathVariable Long authorId) {
         return subScribeService.getSubscriptions(memberId, authorId);
     }
     @PostMapping("/approve-writer-apply/{applicantId}")

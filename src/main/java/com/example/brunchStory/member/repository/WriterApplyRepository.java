@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 @NonNullApi
 public interface WriterApplyRepository extends JpaRepository<WriterApply, Long> {
-    List<WriterApply> findByApplicant(Member applicant);
+    WriterApply findByApplicant(Member applicant);
 
 
 }

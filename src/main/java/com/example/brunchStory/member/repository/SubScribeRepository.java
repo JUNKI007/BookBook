@@ -18,7 +18,7 @@ public interface SubScribeRepository extends JpaRepository<Subscribe, Long> {
     boolean existsByAuthorAndMember(@Param("author") Member author, @Param("member") Member member);
 
     @Query("SELECT s FROM Subscribe s WHERE s.author = :author AND s.member = :member")
-    List<Subscribe> findByMemberAndAuthor(@Param("author") Member author, @Param("member") Member member);
+    Subscribe findByMemberAndAuthor(@Param("author") Member author, @Param("member") Member member);
 
     @Modifying
     @Query("DELETE FROM Subscribe s WHERE s.author = :author AND s.member = :member")
