@@ -23,8 +23,10 @@ public class TestController {
 
     private final WriterApplyService writerApplyService;
     private final SubScribeService subScribeService;
+    //// 위에 두개는 멤버
     private final AlarmService alarmService;
     private final LikesService likesService;
+    // 포스트 컨트롤러
 
 
     @PostMapping("/save-writer")
@@ -89,11 +91,6 @@ public class TestController {
     @GetMapping("/has-liked/{memberId}/{postId}")
     public boolean hasLiked(@PathVariable Long memberId, @PathVariable Long postId) {
         return likesService.hasLiked(memberId, postId);
-    }
-
-    @GetMapping("/like-count/{postId}")
-    public Long getLikeCount(@PathVariable Long postId) {
-        return likesService.getLikeCount(postId);
     }
 
 }

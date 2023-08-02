@@ -24,6 +24,8 @@ public class QWriterApply extends EntityPathBase<WriterApply> {
 
     public final QMember applicant;
 
+    public final BooleanPath approved = createBoolean("approved");
+
     public final StringPath content = createString("content");
 
     public final NumberPath<Long> id = createNumber("id", Long.class);

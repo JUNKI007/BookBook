@@ -16,17 +16,19 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@EnableAsync
 public class EmailService {
 
-    private final ThreadPoolTaskExecutor taskExecutor;
     private final MailSender mailSender;
     private final MemberService memberService;
     private final ObjectMapper objectMapper;
 
+
+    @Async
     public void sendEmailToSubscribers(List<String> emailList) {
         for (String email : emailList) {
             // 비동기적으로 이메일 전송 작업을 스레드 풀에서 실행
-            sendForSubscriber(email,"test");
+            send(email,"test");
         }
     }
 
@@ -35,7 +37,7 @@ public class EmailService {
 
 
     @Async
-    public void sendForSubscriber(String email,String content){
+    public void send(String email,String content){
         SimpleMailMessage msg = new SimpleMailMessage();
 
         //TODO 멤버에서 이메일 찾아다가 보내줘야함.

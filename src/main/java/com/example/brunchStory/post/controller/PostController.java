@@ -3,12 +3,14 @@ package com.example.brunchStory.post.controller;
 import com.example.brunchStory.config.auth.AuthService;
 import com.example.brunchStory.post.domain.request.PostRequest;
 import com.example.brunchStory.post.domain.response.PostResponse;
+import com.example.brunchStory.post.domain.response.PostResponseForMail;
 import com.example.brunchStory.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -18,12 +20,14 @@ public class PostController {
     private final AuthService authService;
     private final PostService postService;
 
+    // 글 찾기
     @GetMapping("{id}")
     public PostResponse findPostById(@PathVariable(name = "id") Long postId) {
         return postService.findByIdCustom(postId);
         //
     }
 
+    // 글 쓰기
     @PostMapping
     @PreAuthorize("hasRole('ROLE_AUTHOR')")
     public void post(@RequestBody PostRequest postRequest,
@@ -34,6 +38,8 @@ public class PostController {
         Long memberId = ((Integer) data.get("memberId")).longValue();
         postService.write(memberId,postRequest);
     }
+
+    // 글 지우기
     @DeleteMapping("{id}")
     @PreAuthorize("hasRole('ROLE_AUTHOR')")
     public void delete(@PathVariable(name = "id") Long postId
@@ -43,4 +49,9 @@ public class PostController {
         Long memberId = ((Integer) data.get("memberId")).longValue();
         postService.delete(postId,memberId);
     }
+    // 글 메일로 보내기
+    @GetMapping("mailtest")
+    public void mailService(){
+        postService.sendMailTest();
+    } // 이거 하면 메일 감.
 }

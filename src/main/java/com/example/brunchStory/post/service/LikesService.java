@@ -39,8 +39,5 @@ public class LikesService {
         return likesRepository.existsByMemberAndPost(member, post);
     }
 
-    public Long getLikeCount(Long postId){
-        Post post = postService.findById(postId);
-        return likesRepository.countByPost(post);
-    }
+
 }
