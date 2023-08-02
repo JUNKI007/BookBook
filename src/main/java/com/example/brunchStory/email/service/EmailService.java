@@ -16,7 +16,6 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@EnableAsync // 비동기 작업이라고 하는데 더 공부해야함.
 public class EmailService {
 
     private final ThreadPoolTaskExecutor taskExecutor;
@@ -24,11 +23,10 @@ public class EmailService {
     private final MemberService memberService;
     private final ObjectMapper objectMapper;
 
-    @Async
     public void sendEmailToSubscribers(List<String> emailList) {
         for (String email : emailList) {
             // 비동기적으로 이메일 전송 작업을 스레드 풀에서 실행
-            taskExecutor.execute(() -> sendForSubscriber(email));
+            sendForSubscriber(email,"test");
         }
     }
 
@@ -36,8 +34,8 @@ public class EmailService {
 
 
 
-
-    public void sendForSubscriber(String email){
+    @Async
+    public void sendForSubscriber(String email,String content){
         SimpleMailMessage msg = new SimpleMailMessage();
 
         //TODO 멤버에서 이메일 찾아다가 보내줘야함.
@@ -48,7 +46,7 @@ public class EmailService {
 
         msg.setTo(email);
         msg.setSubject("당신이 좋아할만한 제목");
-        msg.setText("당신이 좋아할만한 글들");
+        msg.setText(content);
 
         //emailContent = objectMapper.writeValueAsString(객체);
         //객체를 넣어서 json 형식으로 바꿔줌

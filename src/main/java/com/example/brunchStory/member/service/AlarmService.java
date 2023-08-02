@@ -15,9 +15,9 @@ public class AlarmService {
     //글을 올릴 때 알림 생성 및 저장
 
     public void createPostAlarm(Long authorId, Long memberId) {
-        MemberResponse authorResponse = memberService.findById(authorId);
+        Member author = memberService.findById(authorId);
         Member member = Member.builder().id(memberId).build();
-        Member author = Member.builder().id(authorResponse.getId()).build();
+
 
         Alarm alarm = new Alarm();
         alarm.setMember(member);
@@ -25,8 +25,5 @@ public class AlarmService {
         alarmRepository.save(alarm);
 
     }
-    // 멤버 찾기
-    private MemberResponse findMemberById(Long memberId){
-        return memberService.findById(memberId);
-    }
+
 }
