@@ -9,10 +9,11 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-
 public class MemberResponse extends MemberDto {
 //    subscribers,posts
+
     private List<MemberDto> publishers; // 작가(유튜버)
+
 
     @QueryProjection
     public MemberResponse(Member member) {

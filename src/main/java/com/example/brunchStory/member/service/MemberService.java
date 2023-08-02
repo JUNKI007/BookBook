@@ -73,10 +73,12 @@ public class MemberService {
         return authorResponse;
     }
 
+
     // 전체멤버찾기
     public Page<MemberResponse> findAllMember(PageRequest pageRequest){
         Page<Member> memberAll = memberRepository.findAllBy(pageRequest);
         return memberAll.map(MemberResponse::new);
     }
+
 
 }

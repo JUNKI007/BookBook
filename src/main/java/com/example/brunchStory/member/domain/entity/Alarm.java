@@ -1,6 +1,5 @@
 package com.example.brunchStory.member.domain.entity;
 
-import com.example.brunchStory.member.domain.entity.Member;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
