@@ -21,6 +21,7 @@ public class WriterApply {
     private String content;
 
     private LocalDate localDate;
+    private boolean approved;
 
     @OneToOne
     Member applicant;

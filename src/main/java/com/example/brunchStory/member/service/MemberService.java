@@ -116,6 +116,15 @@ public class MemberService {
         Page<Member> memberAll = memberRepository.findAllMember(pageRequest);
         return memberAll.map(MemberAllResponse::new);
     }
+    public Member findById(Long id){
+        Optional<Member> byId = memberRepository.findById(id);
+        Member member = byId.orElseThrow(RuntimeException::new);
+        return member;
+    }
+
+    public void saveMember(Member member) {
+        memberRepository.save(member);
+    }
 
     public List<MemberAllResponse> findAllMemberForMail(){
         List<Member> allMemberForMail = memberRepository.findAllMemberForMail();

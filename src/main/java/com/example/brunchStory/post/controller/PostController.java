@@ -16,7 +16,6 @@ import java.util.Map;
 @RequestMapping("/api/v1/posts")
 public class PostController {
     private final AuthService authService;
-
     private final PostService postService;
 
     @GetMapping("{id}")

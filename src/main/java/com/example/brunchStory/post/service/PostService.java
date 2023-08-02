@@ -4,6 +4,7 @@ import com.example.brunchStory.config.domain.dto.SubjectDto;
 import com.example.brunchStory.email.service.EmailService;
 import com.example.brunchStory.member.domain.entity.Member;
 
+
 import com.example.brunchStory.member.domain.response.MemberAllResponse;
 import com.example.brunchStory.member.domain.response.MemberResponse;
 
@@ -38,9 +39,6 @@ public class PostService {
     private final SubjectService subjectService;
 
     private final EmailService emailService;
-
-
-
 
 
     public void write(Long memberId, PostRequest postRequest){
@@ -86,12 +84,15 @@ public class PostService {
     public Page<PostResponse> findAllByCondition(PostCondition postCondition, PageRequest pageRequest){
         return postRepository.findAllByCondition(pageRequest,postCondition);
     }
+
     public void savePost(Post post) {
         postRepository.save(post);
     }
+
     ////////////////////////////////
     @Transactional(readOnly = true)
     public List<PostResponseForMail> findAllByLike(){
+
         List<Post> allByLike = postRepository.findAllByLike(LocalDateTime.now().minusDays(1));
         // 현재 시간보다 하루전부터 쓰여진 글만 가져오기.
         // 좋아요가 5이상인 글을 뽑아오기.

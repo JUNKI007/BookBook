@@ -13,7 +13,7 @@ public class WriterApplyRequest {
 
     public WriterApply toEntity(Member applicant){
         return WriterApply.builder().content(content)
-                .title(title).applicant(applicant).build();
+                .title(title).applicant(applicant).approved(false).build();
     }
 }
 
