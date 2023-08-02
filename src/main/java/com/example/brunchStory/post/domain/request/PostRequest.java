@@ -25,6 +25,7 @@ public class PostRequest {
                 .author(member)
                 .subject(subject)
                 .localDateTime(LocalDateTime.now())
+                .likeCount(0)
                 .build();
 
     }

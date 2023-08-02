@@ -1,7 +1,6 @@
 package com.example.brunchStory.post.service;
 
 import com.example.brunchStory.member.domain.entity.Member;
-import com.example.brunchStory.member.domain.response.MemberResponse;
 import com.example.brunchStory.member.service.MemberService;
 import com.example.brunchStory.post.domain.dto.PostCondition;
 import com.example.brunchStory.post.domain.dto.SubjectWithPost;
@@ -34,9 +33,7 @@ public class PostService {
 
 
     public void write(Long memberId, PostRequest postRequest){
-
         Member member = Member.builder().id(memberId).build();
-
         Subject subject = subjectService.findById(postRequest.getSubjectNum());
         System.out.println(subject);
 
@@ -77,10 +74,14 @@ public class PostService {
         return postRepository.findAllByCondition(pageRequest,postCondition);
     }
 
+    public void savePost(Post post) {
+        postRepository.save(post);
+    }
+
     ////////////////////////////////
 
     @Transactional(readOnly = true)
-    private List<PostResponseForMail> findAllByLike(){
+    public List<PostResponseForMail> findAllByLike(){
 
         List<Post> allByLike = postRepository.findAllByLike(LocalDateTime.now().minusDays(1));
         // 현재 시간보다 하루전부터 쓰여진 글만 가져오기.
