@@ -20,6 +20,7 @@ public class SubScribeService {
 
 
 
+
         // 현재 시간 정보를 가져옵니다.
         LocalDate subscribeTime = LocalDate.now();
         // 구독 정보를 생성하고 저장합니다.
@@ -42,13 +43,10 @@ public class SubScribeService {
     public Long getSubscriberCount(Long authorId) {
         Member author = memberService.findById(authorId);
 
-
-
         return subScribeRepository.countByAuthor(author);
     }
+  
     public List<Subscribe> getSubscriptions(Long memberId, Long authorId) {
-
-
 
         Member author = memberService.findById(authorId);
         Member member = Member.builder().id(memberId).build();
