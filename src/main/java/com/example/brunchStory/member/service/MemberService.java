@@ -7,6 +7,7 @@ import com.example.brunchStory.member.domain.request.LoginRequest;
 import com.example.brunchStory.member.domain.response.*;
 import com.example.brunchStory.member.repository.InterestRepository;
 import com.example.brunchStory.member.repository.MemberRepository;
+import com.example.brunchStory.member.repository.SubScribeRepository;
 import com.example.brunchStory.post.domain.entity.Interest;
 import com.example.brunchStory.post.domain.entity.Subject;
 import com.example.brunchStory.post.service.SubjectService;
@@ -27,6 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberService {
     private final MemberRepository memberRepository;
     private final InterestRepository interestRepository;
+    private final SubScribeRepository subScribeRepository;
     private final AuthService authService;
     private final SubjectService subjectService;
 
@@ -40,11 +42,6 @@ public class MemberService {
         String token = authService.makeToken(member);
         return new LoginResponse(member.getId(), member.getEmail(), member.getRole(), token);
     }
-
-    public Map<String, Object> getTokenToData(String token) {
-        return authService.getClaims(token);
-    }
-
 
     // 회원가입
     public void insert(SignupRequest request){
@@ -98,7 +95,6 @@ public class MemberService {
     }
 
 
-
     // 관심사 순위 및 비율 찾기
     public MemberInterestResponse findInterestRank(){
         List<Interest> all = interestRepository.findAll();
@@ -133,6 +129,7 @@ public class MemberService {
     }
 
 
+
     public void saveMember(Member member) {
         memberRepository.save(member);
     }
@@ -141,6 +138,10 @@ public class MemberService {
         List<Member> allMemberForMail = memberRepository.findAllMemberForMail();
 
         return allMemberForMail.stream().map(MemberAllResponse::new).toList();
+    }
+
+    public List<Member> getSubscribingMembers(Long authorId) {
+        return subScribeRepository.findMembersByAuthorId(authorId);
     }
 
 }

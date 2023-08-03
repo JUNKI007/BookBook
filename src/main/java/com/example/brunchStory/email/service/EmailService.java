@@ -1,6 +1,6 @@
 package com.example.brunchStory.email.service;
 
-import com.example.brunchStory.email.dto.EmailMessage;
+
 import com.example.brunchStory.member.service.MemberService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -8,7 +8,7 @@ import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,6 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @EnableAsync
 public class EmailService {
+
 
     private final MailSender mailSender;
     private final MemberService memberService;
@@ -31,10 +32,6 @@ public class EmailService {
             send(email,"test");
         }
     }
-
-
-
-
 
     @Async
     public void send(String email,String content){

@@ -10,12 +10,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface SubScribeRepository extends JpaRepository<Subscribe, Long> {
+public interface    SubScribeRepository extends JpaRepository<Subscribe, Long> {
     @Query("SELECT CASE WHEN COUNT(s) > 0 THEN true ELSE false END FROM Subscribe s WHERE s.author = :author AND s.member = :member")
     boolean existsByAuthorAndMember(@Param("author") Member author, @Param("member") Member member);
   
     @Query("SELECT s FROM Subscribe s WHERE s.author = :author AND s.member = :member")
     Optional<Subscribe> findByMemberAndAuthor(@Param("author") Member author, @Param("member") Member member);
+
+    @Query("SELECT s.member FROM Subscribe s WHERE s.author.id = :authorId")
+    List<Member> findMembersByAuthorId(@Param("authorId") Long authorId);
 
     @Modifying
     @Query("DELETE FROM Subscribe s WHERE s.author = :author AND s.member = :member")
@@ -23,4 +26,9 @@ public interface SubScribeRepository extends JpaRepository<Subscribe, Long> {
   
     @Query("SELECT COUNT(s) FROM Subscribe s WHERE s.author = :author")
     Long countByAuthor(@Param("author") Member author);
+
 }
+
+
+
+

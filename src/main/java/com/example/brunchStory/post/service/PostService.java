@@ -6,21 +6,22 @@ import com.example.brunchStory.member.domain.entity.Member;
 
 
 import com.example.brunchStory.member.domain.response.MemberAllResponse;
-import com.example.brunchStory.member.domain.response.MemberResponse;
 
 import com.example.brunchStory.member.service.MemberService;
 import com.example.brunchStory.post.domain.dto.PostCondition;
 import com.example.brunchStory.post.domain.entity.Post;
 import com.example.brunchStory.post.domain.entity.Subject;
+import com.example.brunchStory.post.domain.event.PostCreateEvent;
 import com.example.brunchStory.post.domain.response.PostResponseForMail;
 import com.example.brunchStory.post.repository.PostRepository;
 import com.example.brunchStory.post.domain.request.PostRequest;
 import com.example.brunchStory.post.domain.response.PostResponse;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,8 +37,11 @@ public class PostService {
     private final PostRepository postRepository;
     private final MemberService memberService;
     private final SubjectService subjectService;
-
     private final EmailService emailService;
+    private ApplicationEventPublisher eventPublisher;
+    //글 작성시 이벤트 발생
+
+
 
 
     public void write(Long memberId, PostRequest postRequest){
@@ -46,6 +50,8 @@ public class PostService {
         System.out.println(subject);
         Post post = postRequest.toEntity(member,subject);
         postRepository.save(post);
+
+        eventPublisher.publishEvent(new PostCreateEvent(this, post));
     }
 
 
@@ -142,5 +148,6 @@ public class PostService {
         //
 
 }
+
 
 
