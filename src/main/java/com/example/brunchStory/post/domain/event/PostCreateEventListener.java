@@ -30,7 +30,8 @@ public class PostCreateEventListener implements ApplicationListener<PostCreateEv
         Post post = event.getPost();
         String title = post.getTitle();
         String content = post.getContent();
-        String authorName = post.getAuthor().getName();
+        String authorName = post.getAuthor().getName(); // 이건 쿼리로 갖고와야해서 못가져옴.
+        // 나머진 다 post 에 있는데
         LocalDateTime createTime = post.getLocalDateTime();
 
         // 이메일 본문 구성

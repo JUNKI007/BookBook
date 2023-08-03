@@ -19,7 +19,7 @@ spring:
     host: smtp.gmail.com # 1 서버 호스트
     port: 587 # 2 포트
     username: lty7085@gmail.com #${mail.username} # 3 발신자
-    password:  #${mail.password} # 4 비밀번호. 이것들은 환경변수로 설정예정
+    password: amodrlndsyspmgpg #${mail.password} # 4 비밀번호. 이것들은 환경변수로 설정예정
     properties:
       mail:
         smtp:

@@ -21,8 +21,6 @@ public class EmailService {
 
 
     private final MailSender mailSender;
-    private final MemberService memberService;
-    private final ObjectMapper objectMapper;
 
 
     @Async

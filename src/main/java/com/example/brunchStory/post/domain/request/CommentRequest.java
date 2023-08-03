@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 public class CommentRequest {
 
     private String content;
-    private Long memberId;
 
     public Comment toEntity(Post post, Member member){
         return Comment.builder()
