@@ -6,12 +6,14 @@ import com.example.brunchStory.member.domain.request.LoginRequest;
 
 import com.example.brunchStory.member.domain.request.WriterApplyRequest;
 
-import com.example.brunchStory.member.domain.response.AuthorResponse;
+import com.example.brunchStory.member.domain.response.*;
+
 
 import com.example.brunchStory.member.domain.response.LoginResponse;
 import com.example.brunchStory.member.domain.response.MemberAllResponse;
 import com.example.brunchStory.member.domain.response.MemberResponse;
 import com.example.brunchStory.member.service.AlarmService;
+
 import com.example.brunchStory.member.service.MemberService;
 import com.example.brunchStory.member.service.SubScribeService;
 import com.example.brunchStory.member.service.WriterApplyService;
@@ -27,6 +29,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+
 
 
 @RestController
@@ -57,7 +60,6 @@ public class MemberController {
 
 
     // 회원탈퇴
-
     @GetMapping("/delete/{id}")
     public void delete(@PathVariable("id") Long id) {
         memberService.delete(id);
@@ -87,6 +89,13 @@ public class MemberController {
           @RequestParam(required = false,defaultValue = "10",name = "size")
                                                   Integer size) {
         return memberService.findAllMember(PageRequest.of(page,size));
+    }
+
+    // 관심사 비율 찾기
+    @PreAuthorize("hasAnyRole('ROLE_AUTHOR', 'ROLE_MEMBER')")
+    @GetMapping("/interest")
+    public MemberInterestResponse interestRatio() {
+        return memberService.findInterestRank();
     }
 
 

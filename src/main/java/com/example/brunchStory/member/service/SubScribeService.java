@@ -47,6 +47,7 @@ public class SubScribeService {
         Member author = memberService.findById(authorId);
         return subScribeRepository.countByAuthor(author);
     }
+
     // 이거 나누기
     // 작가를 찔러서 작가를 구독한 리스트를 불러온다.
     // member 받아온다.
@@ -56,7 +57,7 @@ public class SubScribeService {
         Optional<Subscribe> byMemberAndAuthor =
                 subScribeRepository
                 .findByMemberAndAuthor(author, member);
-
     return byMemberAndAuthor.orElse(null);
+
     }
 }

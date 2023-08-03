@@ -32,9 +32,6 @@ public class TestController {
 
 
 
-
-
-
     @GetMapping("/is-subscribed/{authorId}/{memberId}")
     public boolean isSubscribed(@PathVariable Long authorId, @PathVariable Long memberId) {
         return subScribeService.isSubscribed(authorId, memberId);

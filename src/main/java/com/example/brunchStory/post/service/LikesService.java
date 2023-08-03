@@ -31,13 +31,10 @@ public class LikesService {
         }
 //        postService.savePost(post);
     }
-
-
     public boolean hasLiked(Long memberId, Long postId){
         Member member = Member.builder().id(memberId).build();
         Post post = postService.findById(postId);
         return likesRepository.existsByMemberAndPost(member, post);
     }
-
 
 }
