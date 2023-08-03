@@ -10,23 +10,22 @@ import org.springframework.stereotype.Service;
 public class AlarmService {
     private final AlarmRepository alarmRepository;
     private final MemberService memberService;
+    private final SubScribeService subScribeService;
 
-  
 
     //글을 올릴 때 알림 생성 및 저장
-    public void createPostAlarm(Long authorId, Long memberId) {
+    public void insertAlarm(Long authorId, Long memberId) {
+        // 구독 여부 확인
+        boolean isSubscribed = subScribeService.isSubscribed(authorId, memberId);
+    if (isSubscribed) {
         Member author = memberService.findById(authorId);
         Member member = Member.builder().id(memberId).build();
-
-
         Alarm alarm = new Alarm();
         alarm.setMember(member);
         alarm.setAuthor(author);
         alarmRepository.save(alarm);
+        }
     }
-
-
-
 }
 
 

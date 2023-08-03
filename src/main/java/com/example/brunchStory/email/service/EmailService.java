@@ -16,6 +16,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@EnableAsync
 public class EmailService {
 
 
@@ -23,6 +24,8 @@ public class EmailService {
     private final MemberService memberService;
     private final ObjectMapper objectMapper;
 
+
+    @Async
     public void sendEmailToSubscribers(List<String> emailList) {
         for (String email : emailList) {
             // 비동기적으로 이메일 전송 작업을 스레드 풀에서 실행

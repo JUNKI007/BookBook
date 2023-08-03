@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class LikesService {
     private final LikesRepository likesRepository;
     private final PostService postService;
-    public void Like(Long memberId, Long postId){
+    public void likes(Long memberId, Long postId){
         Member member = Member.builder().id(memberId).build();
         Post post = postService.findById(postId);
         Likes existingLike = likesRepository.findByMemberAndPost(member, post);
@@ -31,16 +31,10 @@ public class LikesService {
         }
 //        postService.savePost(post);
     }
-
-
     public boolean hasLiked(Long memberId, Long postId){
         Member member = Member.builder().id(memberId).build();
         Post post = postService.findById(postId);
         return likesRepository.existsByMemberAndPost(member, post);
     }
 
-    public Long getLikeCount(Long postId){
-        Post post = postService.findById(postId);
-        return likesRepository.countByPost(post);
-    }
 }

@@ -14,6 +14,7 @@ spring:
       ddl-auto: create
 
 
+
     show-sql: true
     properties:
       hibernate:
@@ -22,15 +23,15 @@ spring:
   mail:
     host: smtp.gmail.com # 1 서버 호스트
     port: 587 # 2 포트
-    username: ${mail.username} # 3 발신자
-    password: ${mail.password} # 4 비밀번호. 이것들은 환경변수로 설정예정
+    username: lty7085@gmail.com #${mail.username} # 3 발신자
+    password:  #${mail.password} # 4 비밀번호. 이것들은 환경변수로 설정예정
     properties:
       mail:
         smtp:
-          auth: false # 5 사용자 인증 여부 . 기본값 false 이건 공부 필요함.
+          auth: true # 5 사용자 인증 여부 . 기본값 false 이건 공부 필요함.
           timeout: 5000 # 6 응답 시간.
           starttls:
-            enable: false # 7 보안 관련 . 기본값 false 이것도 공부 필요함.
+            enable: true # 7 보안 관련 . 기본값 false 이것도 공부 필요함.
 
 jwt:
   secret: VlwEyVBsYt9V7zq57TejMnVUyzblYcfPQye08f7MGVA9XkHa
