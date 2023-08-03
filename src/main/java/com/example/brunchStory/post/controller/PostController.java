@@ -5,6 +5,7 @@ import com.example.brunchStory.post.domain.dto.PostCondition;
 import com.example.brunchStory.post.domain.request.PostRequest;
 import com.example.brunchStory.post.domain.response.PostResponse;
 import com.example.brunchStory.post.domain.response.PostResponseForMail;
+import com.example.brunchStory.post.service.LikesService;
 import com.example.brunchStory.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -22,6 +23,7 @@ import java.util.Map;
 public class PostController {
     private final AuthService authService;
     private final PostService postService;
+    private final LikesService likesService;
 
     // 글 하나 찾기
     @GetMapping("{id}")
@@ -66,4 +68,18 @@ public class PostController {
     public void mailService(){
         postService.sendMail();
     } // 이거 하면 메일 감.
+
+    //////////////////
+
+    // 좋아요 하는 것 .
+    @PostMapping("/like/{postId}")
+    @PreAuthorize("hasAnyRole('ROLE_AUTHOR', 'ROLE_MEMBER')")
+    public void likes( @PathVariable Long postId,
+                          @RequestHeader("Authorization")String token) {
+
+        Map<String, Object> data = authService.getClaims(token.replace("Bearer ", ""));
+        Long memberId = ((Integer) data.get("memberId")).longValue();
+        // 잘못된 postId 사용
+        likesService.likes(memberId, postId); // postId가 9999인 글은 존재하지 않는다고 가정합니다.
+    }
 }
