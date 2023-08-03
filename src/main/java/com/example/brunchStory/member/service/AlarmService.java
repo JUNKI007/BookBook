@@ -12,7 +12,9 @@ public class AlarmService {
     private final MemberService memberService;
     private final SubScribeService subScribeService;
 
-    public void createPostAlarm(Long authorId, Long memberId) {
+
+    //글을 올릴 때 알림 생성 및 저장
+    public void insertAlarm(Long authorId, Long memberId) {
         // 구독 여부 확인
         boolean isSubscribed = subScribeService.isSubscribed(authorId, memberId);
     if (isSubscribed) {

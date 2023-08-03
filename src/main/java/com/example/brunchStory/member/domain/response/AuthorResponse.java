@@ -1,5 +1,6 @@
 package com.example.brunchStory.member.domain.response;
 
+import com.example.brunchStory.config.domain.dto.BookDto;
 import com.example.brunchStory.config.domain.dto.MemberDto;
 import com.example.brunchStory.config.domain.dto.PostDto;
 import com.example.brunchStory.config.domain.dto.SubjectDto;
@@ -16,6 +17,7 @@ public class AuthorResponse extends MemberDto{
     private List<MemberDto> publishers; // 작가(유튜버)
     private List<SubjectDto> interests; // 관심사
     private List<MemberDto> subscribers; // 구독자
+    private List<BookDto> books;
 
     @QueryProjection
     public AuthorResponse(Member member) {
@@ -25,7 +27,7 @@ public class AuthorResponse extends MemberDto{
         publishers = member.getPublishers().stream().map(p->new MemberDto(p.getAuthor())).toList();
         subscribers = member.getSubscribers().stream().map(p->new MemberDto(p.getMember())).toList();
         interests = member.getInterests().stream().map(m->new SubjectDto(m.getSubject())).toList();
-
+        books = member.getBooks().stream().map(BookDto::new).toList();
     }
 
     // 리스폰스1 일반 멤버 : publishers(작가)만 가지고 있다

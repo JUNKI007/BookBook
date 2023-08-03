@@ -1,12 +1,21 @@
 package com.example.brunchStory.member.controller;
 
+import com.example.brunchStory.config.auth.AuthService;
+import com.example.brunchStory.member.domain.entity.WriterApply;
 import com.example.brunchStory.member.domain.request.LoginRequest;
 
 import com.example.brunchStory.member.domain.request.WriterApplyRequest;
 
 import com.example.brunchStory.member.domain.response.*;
 
+
+import com.example.brunchStory.member.domain.response.LoginResponse;
+import com.example.brunchStory.member.domain.response.MemberAllResponse;
+import com.example.brunchStory.member.domain.response.MemberResponse;
+import com.example.brunchStory.member.service.AlarmService;
+
 import com.example.brunchStory.member.service.MemberService;
+import com.example.brunchStory.member.service.SubScribeService;
 import com.example.brunchStory.member.service.WriterApplyService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +28,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+
 
 
 @RestController
@@ -26,6 +37,10 @@ import java.util.List;
 @RequestMapping("/api/v1/members")
 public class MemberController {
     private final MemberService memberService;
+    private final AlarmService alarmService;
+    private final AuthService authService;
+    private final SubScribeService subScribeService;
+    private final WriterApplyService writerApplyService;
 
     @PostMapping("/login")
     public LoginResponse login(@RequestBody LoginRequest loginRequest) {
@@ -52,7 +67,7 @@ public class MemberController {
 
     // 멤버 찾기
     @PreAuthorize("hasAnyRole('ROLE_AUTHOR', 'ROLE_MEMBER')")
-    @GetMapping("/{id}/member")
+    @GetMapping("/member/{id}")
     public MemberResponse findByMember(@PathVariable("id") Long id) {
 
         return memberService.findByMember(id);
@@ -60,7 +75,7 @@ public class MemberController {
 
     // 저자 찾기
     @PreAuthorize("hasAnyRole('ROLE_AUTHOR', 'ROLE_MEMBER')")
-    @GetMapping("/{id}/author")
+    @GetMapping("/author/{id}")
     public AuthorResponse findByAuthor(@PathVariable("id") Long id) {
         return memberService.findByAuthor(id);
     }
@@ -100,6 +115,70 @@ public class MemberController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void adminTest() {
         System.out.println("관리자시군요");
+    }
+
+    /////////////////
+
+    @PostMapping("/alarm/{authorId}")
+    @PreAuthorize("hasAnyRole('ROLE_AUTHOR', 'ROLE_MEMBER')")
+    public void Alarm(@PathVariable Long authorId,
+                      @RequestHeader("Authorization")String token) {
+
+        Map<String, Object> data = authService.getClaims(token.replace("Bearer ", ""));
+        Long memberId = ((Integer) data.get("memberId")).longValue();
+
+        alarmService.insertAlarm(authorId, memberId);
+    }
+
+    //////////////////
+
+    @PostMapping("/subscribe/{authorId}")
+    @PreAuthorize("hasAnyRole('ROLE_AUTHOR', 'ROLE_MEMBER')")
+    public void subscribe(@PathVariable Long authorId,
+                          @RequestHeader("Authorization")String token) {
+        Map<String, Object> data = authService.getClaims(token.replace("Bearer ", ""));
+        Long memberId = ((Integer) data.get("memberId")).longValue();
+
+        subScribeService.subscribe(authorId, memberId);
+    }
+
+    ///////////////////
+    /*
+
+    작가신청 및 허용
+
+    */
+    @PostMapping("/application")
+    @PreAuthorize("hasRole('ROLE_MEMBER')")
+    public void saveWriter(@RequestBody WriterApplyRequest request,
+                           @RequestHeader("Authorization")String token) {
+        Map<String, Object> data = authService.getClaims(token.replace("Bearer ", ""));
+        Long memberId = ((Integer) data.get("memberId")).longValue();
+
+        writerApplyService.saveWriter(request, memberId);
+    }
+
+    @DeleteMapping("/application/{applicantId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public void deleteWriterApply(@PathVariable Long applicantId,
+                                  @RequestHeader("Authorization")String token) {
+
+        Map<String, Object> data = authService.getClaims(token.replace("Bearer ", ""));
+        Long memberId = ((Integer) data.get("memberId")).longValue();
+
+        writerApplyService.deleteWriterApply(applicantId, memberId);
+    }
+
+    @GetMapping("/application")
+    public List<WriterApply> getWriterAppliesForMember(@RequestHeader("Authorization") Long memberId) {
+        return writerApplyService.getWriterAppliesForMember(memberId);
+
+
+    }
+    @PostMapping("/application/{applicantId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public void approveWriterApply(@PathVariable Long applicantId) {
+        writerApplyService.approveWriterApply(applicantId);
     }
 
 }

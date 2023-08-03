@@ -11,7 +11,7 @@ import java.util.concurrent.Executor;
 @EnableAsync
 public class EmailConfig {
 
-    @Bean(name = "threadPoolTaskExecutor")
+    @Bean
     public Executor threadPoolTaskExecutor() {
         ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
         taskExecutor.setCorePoolSize(3); // 기본 스레드 수

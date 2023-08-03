@@ -98,6 +98,7 @@ public class MemberService {
     }
 
 
+
     // 관심사 순위 및 비율 찾기
     public MemberInterestResponse findInterestRank(){
         List<Interest> all = interestRepository.findAll();
@@ -132,7 +133,6 @@ public class MemberService {
     }
 
 
-
     public void saveMember(Member member) {
         memberRepository.save(member);
     }
@@ -142,4 +142,5 @@ public class MemberService {
 
         return allMemberForMail.stream().map(MemberAllResponse::new).toList();
     }
+
 }
