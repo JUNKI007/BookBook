@@ -10,6 +10,7 @@ import com.example.brunchStory.member.domain.response.MemberAllResponse;
 import com.example.brunchStory.member.domain.response.MemberResponse;
 import com.example.brunchStory.member.repository.InterestRepository;
 import com.example.brunchStory.member.repository.MemberRepository;
+import com.example.brunchStory.member.repository.SubScribeRepository;
 import com.example.brunchStory.post.domain.entity.Interest;
 import com.example.brunchStory.post.domain.entity.Subject;
 import com.example.brunchStory.post.service.SubjectService;
@@ -35,8 +36,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberService {
     private final MemberRepository memberRepository;
     private final InterestRepository interestRepository;
+    private final SubScribeRepository subScribeRepository;
     private final AuthService authService;
-
     private final SubjectService subjectService;
 
     public LoginResponse login(LoginRequest request) {
@@ -49,11 +50,6 @@ public class MemberService {
         String token = authService.makeToken(member);
         return new LoginResponse(member.getId(), member.getEmail(), member.getRole(), token);
     }
-
-    public Map<String, Object> getTokenToData(String token) {
-        return authService.getClaims(token);
-    }
-
 
     // 회원가입
     public void insert(SignupRequest request){
@@ -116,11 +112,6 @@ public class MemberService {
         Page<Member> memberAll = memberRepository.findAllMember(pageRequest);
         return memberAll.map(MemberAllResponse::new);
     }
-    public Member findById(Long id){
-        Optional<Member> byId = memberRepository.findById(id);
-        Member member = byId.orElseThrow(RuntimeException::new);
-        return member;
-    }
 
     public void saveMember(Member member) {
         memberRepository.save(member);
@@ -132,10 +123,7 @@ public class MemberService {
         return allMemberForMail.stream().map(MemberAllResponse::new).toList();
     }
 
-    public Member findById(Long id){
-        Optional<Member> byId = memberRepository.findById(id);
-        Member member = byId.orElseThrow(RuntimeException::new);
-        return member;
+    public List<Member> getSubscribingMembers(Long authorId) {
+        return subScribeRepository.findMembersByAuthorId(authorId);
     }
-
 }

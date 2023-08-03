@@ -4,17 +4,16 @@ import com.example.brunchStory.member.domain.entity.Subscribe;
 import com.example.brunchStory.member.domain.entity.WriterApply;
 import com.example.brunchStory.member.domain.request.WriterApplyRequest;
 import com.example.brunchStory.member.service.AlarmService;
-import com.example.brunchStory.member.service.MemberService;
 import com.example.brunchStory.member.service.SubScribeService;
 import com.example.brunchStory.member.service.WriterApplyService;
-import com.example.brunchStory.post.domain.request.PostRequest;
+
 import com.example.brunchStory.post.service.LikesService;
-import com.example.brunchStory.post.service.PostService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
+
 
 @RestController
 @RequestMapping("/api/v1/test")
