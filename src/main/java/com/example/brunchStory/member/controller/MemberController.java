@@ -57,17 +57,18 @@ public class MemberController {
         memberService.insert(signupRequest);
     }
 
-
-
     // 회원탈퇴
-    @GetMapping("/delete/{id}")
-    public void delete(@PathVariable("id") Long id) {
-        memberService.delete(id);
-    }
+    @DeleteMapping
+    public void delete(
+                       @RequestHeader("Authorization")String token) {
+        Map<String, Object> data = authService.getClaims(token.replace("Bearer ", ""));
+        Long memberId = ((Integer) data.get("memberId")).longValue();
+            memberService.delete(memberId);
+        }
 
     // 멤버 찾기
-    @PreAuthorize("hasAnyRole('ROLE_AUTHOR', 'ROLE_MEMBER')")
     @GetMapping("/member/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_AUTHOR', 'ROLE_MEMBER')")
     public MemberResponse findByMember(@PathVariable("id") Long id) {
 
         return memberService.findByMember(id);
@@ -81,8 +82,8 @@ public class MemberController {
     }
 
     // 전체 찾기
-    @PreAuthorize("hasAnyRole('ROLE_AUTHOR', 'ROLE_MEMBER')")
     @GetMapping
+    @PreAuthorize("hasAnyRole('ROLE_AUTHOR', 'ROLE_MEMBER')")
     public Page<MemberAllResponse> findAllMember(
             @RequestParam(required = false,defaultValue = "0",name = "page")
                                                   Integer page,
@@ -92,29 +93,10 @@ public class MemberController {
     }
 
     // 관심사 비율 찾기
-    @PreAuthorize("hasAnyRole('ROLE_AUTHOR', 'ROLE_MEMBER')")
     @GetMapping("/interest")
+    @PreAuthorize("hasAnyRole('ROLE_AUTHOR', 'ROLE_MEMBER')")
     public MemberInterestResponse interestRatio() {
         return memberService.findInterestRank();
-    }
-
-
-    @GetMapping("test1")
-    @PreAuthorize("hasRole('ROLE_AUTHOR')")
-    public void writerTest() {
-        System.out.println("작가네요");
-    }
-
-    @GetMapping("test2")
-    @PreAuthorize("hasAnyRole('ROLE_AUTHOR', 'ROLE_MEMBER')")
-    public void twoRoleTest() {
-        System.out.println("당신은 두개의 역할을 가지고 있군요");
-    }
-
-    @GetMapping("test3")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void adminTest() {
-        System.out.println("관리자시군요");
     }
 
     /////////////////
@@ -148,6 +130,24 @@ public class MemberController {
     작가신청 및 허용
 
     */
+
+    //전체 찾기
+    @GetMapping("/application")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public List<WriterApplyResponse> getWriterApplies() {
+        return writerApplyService.findAll();
+
+
+    }
+    // 한명 찾기
+    @GetMapping("/application/{applicantId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public WriterApplyResponse getWriterAppliesForMember(@PathVariable(name = "applicantId") Long applicantId) {
+        return writerApplyService.findByApplicantResponse(applicantId);
+
+
+    }
+    // 작가 신청
     @PostMapping("/application")
     @PreAuthorize("hasRole('ROLE_MEMBER')")
     public void saveWriter(@RequestBody WriterApplyRequest request,
@@ -157,6 +157,8 @@ public class MemberController {
 
         writerApplyService.saveWriter(request, memberId);
     }
+
+    //신청 삭제
 
     @DeleteMapping("/application/{applicantId}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -168,16 +170,12 @@ public class MemberController {
 
         writerApplyService.deleteWriterApply(applicantId, memberId);
     }
+    //
 
-    @GetMapping("/application")
-    public List<WriterApply> getWriterAppliesForMember(@RequestHeader("Authorization") Long memberId) {
-        return writerApplyService.getWriterAppliesForMember(memberId);
-
-
-    }
-    @PostMapping("/application/{applicantId}")
+    @PutMapping("/application/{applicantId}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void approveWriterApply(@PathVariable Long applicantId) {
+    public void approveWriterApply(
+            @PathVariable(name = "applicantId") Long applicantId) {
         writerApplyService.approveWriterApply(applicantId);
     }
 

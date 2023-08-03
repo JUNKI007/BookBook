@@ -19,7 +19,7 @@ public class CommentController {
     private final AuthService authService;
 
 
-    @PostMapping("/{postId}/comments")
+    @PostMapping("/post/{postId}")
     @PreAuthorize("hasAnyRole('ROLE_AUTHOR', 'ROLE_MEMBER', 'ROLE_ADMIN')")
     public void insertComment(@RequestBody CommentRequest commentRequest,
                               @PathVariable Long postId,
@@ -39,7 +39,7 @@ public class CommentController {
         commentService.deleteComment(commentId, memberId, role);
     }
 
-    @GetMapping("/allcomments")
+    @GetMapping
     @PreAuthorize("hasAnyRole('ROLE_AUTHOR', 'ROLE_MEMBER', 'ROLE_ADMIN')")
     public List<CommentResponse> getAllCommentByMember(@RequestHeader("Authorization") String token) {
         Map<String, Object> claims = authService.getClaims(token);

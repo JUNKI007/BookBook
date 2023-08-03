@@ -1,4 +1,4 @@
-package com.example.brunchStory.email.config;
+package com.example.brunchStory.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
