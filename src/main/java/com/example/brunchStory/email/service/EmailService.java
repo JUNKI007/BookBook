@@ -26,15 +26,7 @@ public class EmailService {
 
 
     @Async
-    public void sendEmailToSubscribers(List<String> emailList) {
-        for (String email : emailList) {
-            // 비동기적으로 이메일 전송 작업을 스레드 풀에서 실행
-            send(email,"test");
-        }
-    }
-
-    @Async
-    public void send(String email,String content){
+    public void send(String title, String email,String content){
         SimpleMailMessage msg = new SimpleMailMessage();
 
         //TODO 멤버에서 이메일 찾아다가 보내줘야함.
@@ -44,11 +36,9 @@ public class EmailService {
         // 보내는 것 자체는 여기서 하지만, 위와같은 과정은 다른곳에 존재햐아함.
 
         msg.setTo(email);
-        msg.setSubject("당신이 좋아할만한 제목");
+        msg.setSubject(title);
         msg.setText(content);
 
-        //emailContent = objectMapper.writeValueAsString(객체);
-        //객체를 넣어서 json 형식으로 바꿔줌
 
         mailSender.send(msg);
     }

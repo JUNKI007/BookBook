@@ -38,7 +38,7 @@ public class PostService {
     private final MemberService memberService;
     private final SubjectService subjectService;
     private final EmailService emailService;
-    private ApplicationEventPublisher eventPublisher;
+    private final ApplicationEventPublisher eventPublisher;
     //글 작성시 이벤트 발생
 
 
@@ -141,7 +141,7 @@ public class PostService {
 
             String content = new Gson().toJson(forMails);
 
-            emailService.send(member.getEmail(),content);
+            emailService.send("당신이 좋아할만한 글입니다.",member.getEmail(),content);
         }
     }
         // 해당 토픽을 좋아하는 사람들의 email list를 가져와야한다. ( 멤버 서비스)

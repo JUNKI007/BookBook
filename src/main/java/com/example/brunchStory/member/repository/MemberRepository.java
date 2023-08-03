@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 
 import java.util.List;
@@ -20,7 +21,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
             " left join m.publishers p " +
             " left join m.interests i " +
             "where m.id = :id and m.role = 'ROLE_MEMBER'")
-    Optional<Member> findByMember(Long id);
+    Optional<Member> findByMember(@Param("id") Long id);
 
 
     @Query("select m from Member m " +
@@ -29,7 +30,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
             "left join m.subscribers s " +
             "left join m.posts po " +
             "where m.id = :id and m.role = 'ROLE_AUTHOR'")
-    Optional<Member> findByAuthor(Long id);
+    Optional<Member> findByAuthor(@Param("id") Long id);
 
     @Query("select m from Member m left join fetch m.interests")
     Page<Member> findAllMember(Pageable request);

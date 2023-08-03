@@ -52,9 +52,8 @@ public class WriterApplyService {
         return writerApplyRepository.findByApplicant(member);
     }
 //    회원이 작가로 신청한 작가 신청 정보 조회 ..(Response)
-    public WriterApplyResponse  findByApplicantResponse(Long memberId){
-        Member member = memberService.findById(memberId);
-        WriterApply writerApplies = writerApplyRepository.findByApplicant(member);
+    public WriterApplyResponse  findByApplicantResponse(Long applicantId){
+        WriterApply writerApplies = writerApplyRepository.findById(applicantId).orElseThrow(()->new RuntimeException("해당 작가 정보를 찾을 수 없습니다"));
         return new WriterApplyResponse(writerApplies);
     }
     // findAll 해보자!!!!!!!!!!!!!!

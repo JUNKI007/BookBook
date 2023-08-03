@@ -70,7 +70,6 @@ public class MemberController {
     @GetMapping("/member/{id}")
     @PreAuthorize("hasAnyRole('ROLE_AUTHOR', 'ROLE_MEMBER')")
     public MemberResponse findByMember(@PathVariable("id") Long id) {
-
         return memberService.findByMember(id);
     }
 

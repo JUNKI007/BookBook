@@ -31,7 +31,7 @@ public class CustomPostRepositoryImpl implements CustomPostRepository{
         JPAQuery<Post> posts = queryFactory
                 .select(post)
                 .from(post)
-                .leftJoin(member)
+                .leftJoin(post.author)
                 .fetchJoin()
                 .where(eqInterests(allByIds),
                         contentContains(condition.getContent()),
