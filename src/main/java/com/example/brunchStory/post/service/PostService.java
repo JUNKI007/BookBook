@@ -137,6 +137,6 @@ public class PostService {
         // 해당 토픽을 좋아하는 사람들의 email list를 가져와야한다. ( 멤버 서비스)
         //
 
-    }
+}
     // 해당 토픽을 좋아하는 사람들의 email list를 가져와야한다. ( 멤버 서비스)
     //

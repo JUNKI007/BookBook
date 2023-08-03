@@ -41,11 +41,14 @@ public class SubScribeService {
 
         return subScribeRepository.countByAuthor(author);
     }
-  
-    public List<Subscribe> getSubscriptions(Long memberId, Long authorId) {
 
+
+    // 이거 나누기
+    // 작가를 찔러서 작가를 구독한 리스트를 불러온다.
+    // member 받아온다.
+    public Subscribe getSubscriptions(Long memberId, Long authorId) {
         Member author = memberService.findById(authorId);
         Member member = Member.builder().id(memberId).build();
-        return subScribeRepository.findByMemberAndAuthor(member, author);
+        return subScribeRepository.findByMemberAndAuthor(author, member);
     }
 }
