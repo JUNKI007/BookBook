@@ -33,10 +33,18 @@ public class PostService {
 
     }
 
-    public void delete(Integer postId, Integer memberId){
-        //TODO 내 글이 맞는지 확인
-
-
+    // 게시글 삭제
+    public void delete(Long postId, Long memberId) {
+        Optional<Post> postOptional = postRepository.findById(postId);
+        if (postOptional.isPresent()) {
+            Post post = postOptional.get();
+            if (!post.getAuthor().getId().equals(memberId)) {
+                throw new IllegalArgumentException("삭제할 권한이 없습니다.");
+            }
+            postRepository.delete(post);
+        } else {
+            throw new IllegalArgumentException("게시글을 찾을 수 없습니다.");
+        }
     }
 
     public List<Post>findAllById(List<Long> postIds){ // 아이디들로 모든 글 찾아오기
