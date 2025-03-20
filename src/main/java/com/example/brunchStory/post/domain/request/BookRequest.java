@@ -15,15 +15,15 @@ import java.util.List;
 public class BookRequest {
 
     private String bookName;
-    private List<Integer> posts;
+    private List<Long> postIds;
+    private Long memberId;
 
     public Book toEntity(Member member){
         return Book.builder()
                 .bookName(bookName)
-                .page(posts.size())
+                .page(postIds.size())
                 .publishedDate(LocalDate.now())
                 .author(member)
                 .build();
-
     }
 }

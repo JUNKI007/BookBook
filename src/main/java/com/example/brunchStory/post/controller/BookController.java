@@ -19,13 +19,11 @@ public class BookController {
 
     //책 발간 (여러 게시글을 묶어서 책으로 발행)
     @PostMapping("/publish")
-    public ResponseEntity<Void> publishBook(
-            @RequestBody BookRequest bookRequest,
-            @RequestParam List<Long> postIds,
-            @RequestParam Long memberId) {
-        bookService.publish(bookRequest, postIds, memberId);
+    public ResponseEntity<Void> publishBook(@RequestBody BookRequest bookRequest) {
+        bookService.publish(bookRequest);
         return ResponseEntity.ok().build();
     }
+
 
     //  특정 책 조회
     @GetMapping("/{bookId}")

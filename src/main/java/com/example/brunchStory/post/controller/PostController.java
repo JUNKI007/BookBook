@@ -10,7 +10,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/posts")
@@ -36,14 +38,29 @@ public class PostController {
         postService.delete(postId, memberId);
         return ResponseEntity.ok().build();
     }
-
-    // 📌 특정 게시글 조회
     @GetMapping("/{postId}")
-    public ResponseEntity<Post> getPost(@PathVariable Long postId) {
-        return ResponseEntity.ok(postService.findById(postId));
+    public ResponseEntity<PostResponse> getPost(@PathVariable Long postId) {
+        Post post = postService.findById(postId);
+
+        // Subject가 null인지 확인 후 처리
+        List<String> subjects = post.getSubject() != null
+                ? List.of(post.getSubject().getName())
+                : Collections.emptyList();
+
+        PostResponse response = new PostResponse(
+                post.getId(),
+                post.getTitle(),
+                post.getContent(),
+                post.getLikeCount(),
+                post.getAuthor().getName(),
+                subjects
+        );
+
+        return ResponseEntity.ok(response);
     }
 
-    // 📌 모든 게시글 조회 (페이징 가능)
+
+
     @GetMapping
     public ResponseEntity<Page<PostResponse>> getAllPosts(
             @RequestParam(required = false, defaultValue = "0") int page,

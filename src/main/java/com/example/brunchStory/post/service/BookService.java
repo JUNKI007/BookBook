@@ -1,6 +1,7 @@
 package com.example.brunchStory.post.service;
 
 import com.example.brunchStory.member.domain.entity.Member;
+import com.example.brunchStory.member.repository.MemberRepository;
 import com.example.brunchStory.post.domain.entity.Book;
 import com.example.brunchStory.post.domain.entity.Post;
 import com.example.brunchStory.post.domain.entity.Publish;
@@ -8,10 +9,13 @@ import com.example.brunchStory.post.domain.request.BookRequest;
 import com.example.brunchStory.post.domain.response.BookResponse;
 import com.example.brunchStory.post.domain.response.PostResponse;
 import com.example.brunchStory.post.repository.BookRepository;
+import com.example.brunchStory.post.repository.PostRepository;
 import com.example.brunchStory.post.repository.PublishRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,37 +25,33 @@ public class BookService {
 
     private final BookRepository bookRepository;
     private final PublishRepository publishRepository;
+    private final MemberRepository memberRepository;
+    private final PostRepository postRepository;
     private final PostService postService;
 
 
 
 
-    public void publish(BookRequest bookRequest,List<Long> posts,Long memberId ){
-        //TODO 작가가 글을 모아서 발간을 해야함.
-        //글이 자신의 것인지 재확인 필요함.
+    @Transactional
+    public void publish(BookRequest bookRequest) {
+        Member member = memberRepository.findById(bookRequest.getMemberId())
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
 
-        Member member = Member.builder().id(memberId).build();
-        Book book = bookRepository.save(bookRequest.toEntity(member));
+        Book book = bookRequest.toEntity(member);
+        bookRepository.save(book);
 
-        List<Post> postsById = postService.findAllById(posts);
-        // findbyidandmember로 하는게 낫지않나 생각중.
+        List<Post> posts = postRepository.findAllById(bookRequest.getPostIds());
 
-        List<Publish> publishes = null;
-        Publish publish = new Publish(null,null,book);
-
-
-        for (Post post:
-             postsById) {
-           // 포스트마다 현재 로그인 된 사람인지 검증 필요. 근데 그걸 여기서 해야하나?
-            // 메소드를 만들어서 검증하는게 낫다.
-
-            publish.setPost(post);
-            publishes.add(publish);
+        for (Post post : posts) {
+            if (post.getPublishes() == null) {
+                post.updatePublishes(new ArrayList<>());
+            }
+            Publish newPublish = new Publish(book, post);
+            post.getPublishes().add(newPublish);
+            publishRepository.save(newPublish);
         }
-
-        publishRepository.saveAll(publishes);
-
     }
+
 
     public BookResponse read(Long BookId){
 

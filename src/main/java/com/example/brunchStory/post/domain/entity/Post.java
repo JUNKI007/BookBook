@@ -39,4 +39,8 @@ public class Post {
     private List<Comment> comments;
 
 
+
+    public void updatePublishes(List<Publish> publishes) {
+        this.publishes = publishes;
+    }
 }

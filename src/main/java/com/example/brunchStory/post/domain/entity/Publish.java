@@ -1,28 +1,28 @@
 package com.example.brunchStory.post.domain.entity;
 
-import com.example.brunchStory.post.domain.entity.Book;
-import com.example.brunchStory.post.domain.entity.Post;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "publish")
-@Getter @Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Publish {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    private Book book;
 
     @ManyToOne
     private Post post;
 
-    @ManyToOne
-    private Book book;
+    public Publish(Book book, Post post) {
+        this.book = book;
+        this.post = post;
+    }
 }
