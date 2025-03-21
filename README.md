@@ -19,7 +19,7 @@
 &nbsp;
 
 # 🎥 영상
-[![프로젝트영상](https://img.youtube.com/vi/7UMTDyJAuKY/0.jpg)](https://www.youtube.com/watch?v=7UMTDyJAuKY)
+[![프로젝트 영상](https://img.youtube.com/vi/7pFIFMa0F4Y/0.jpg)](https://www.youtube.com/watch?v=7pFIFMa0F4Y)
 
 
 &nbsp;
